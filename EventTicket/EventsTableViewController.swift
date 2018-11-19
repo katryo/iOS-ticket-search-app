@@ -35,10 +35,11 @@ class EventsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
 
-        cell.textLabel?.text = self.events[indexPath.row].name
-        
+        cell.eventNameLabel.text = self.events[indexPath.row].name
+    
+        cell.thumbnailView.image = UIImage(named: "location")
         // Configure the cell...
 
         return cell
