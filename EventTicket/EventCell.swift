@@ -10,6 +10,7 @@ import UIKit
 
 class EventCell: UITableViewCell {
 
+    @IBOutlet weak var dateTimeLabel: UILabel!
     @IBOutlet weak var venueNameLabel: UILabel!
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var thumbnailView: UIImageView!

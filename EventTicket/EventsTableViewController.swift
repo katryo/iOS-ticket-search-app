@@ -6,6 +6,7 @@
 //  Copyright © 2018 Denkinovel. All rights reserved.
 //
 
+
 import UIKit
 
 class EventsTableViewController: UITableViewController {
@@ -33,7 +34,9 @@ class EventsTableViewController: UITableViewController {
                     self.events = eventList.events
                     print(self.events.count)
                     
-                    self.tableView.reloadData()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 } catch {
                     print("Failed to decode the JSON", error.localizedDescription)
                 }
@@ -69,8 +72,25 @@ class EventsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
 
         cell.eventNameLabel.text = self.events[indexPath.row].name
-    
-        cell.thumbnailView.image = UIImage(named: "location")
+        cell.venueNameLabel.text = self.events[indexPath.row].venueName
+        cell.dateTimeLabel.text = self.events[indexPath.row].date + " " + self.events[indexPath.row].time
+        
+        var thumbnail = UIImage(named: "sports")!
+        switch self.events[indexPath.row].segment {
+        case "Sports":
+            thumbnail = UIImage(named: "sports")!
+        case "Music":
+            thumbnail = UIImage(named: "music")!
+        case "Arts & Theatre":
+            thumbnail = UIImage(named: "arts")!
+        case "Film":
+            thumbnail = UIImage(named: "film")!
+        case "Miscellaneous":
+            thumbnail = UIImage(named: "miscellaneous")!
+        default:
+            print("Segment \(self.events[indexPath.row].segment) not specified and I cannot see the thumbnail")
+        }
+        cell.thumbnailView.image = thumbnail
         // Configure the cell...
 
         return cell

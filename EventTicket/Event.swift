@@ -10,7 +10,15 @@ import Foundation
 
 class Event: Codable {
     let name: String
-    //let address: String
+    let url: URL
+    let seatmap: URL
+    let images: [URL]
+    let date: String
+    let time: String
+    let venueName: String
+    let segment: String
+    let genre: String
+    let subGenre: String
     
 //    init(name: String, address: String) {
 //        self.name = name
