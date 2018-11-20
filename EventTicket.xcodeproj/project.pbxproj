@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		53232B6B21A360D00089AA27 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6A21A360D00089AA27 /* Event.swift */; };
 		53232B6D21A36F740089AA27 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6C21A36F740089AA27 /* EventCell.swift */; };
+		53232B6F21A3966F0089AA27 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6E21A3966F0089AA27 /* EventList.swift */; };
 		53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */; };
 		53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B720219E589E009F5DB3 /* AppDelegate.swift */; };
 		53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B722219E589E009F5DB3 /* SearchViewController.swift */; };
@@ -45,6 +46,7 @@
 		42889DB7FD3975CF645A2FA3 /* Pods-EventTicketUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventTicketUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventTicketUITests/Pods-EventTicketUITests.release.xcconfig"; sourceTree = "<group>"; };
 		53232B6A21A360D00089AA27 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		53232B6C21A36F740089AA27 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		53232B6E21A3966F0089AA27 /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		53E4B71D219E589E009F5DB3 /* EventTicket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventTicket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E4B720219E589E009F5DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				53E4B72C219E58A1009F5DB3 /* Info.plist */,
 				53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */,
 				53232B6A21A360D00089AA27 /* Event.swift */,
+				53232B6E21A3966F0089AA27 /* EventList.swift */,
 			);
 			path = EventTicket;
 			sourceTree = "<group>";
@@ -336,23 +339,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventTicket/Pods-EventTicket-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -410,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53232B6F21A3966F0089AA27 /* EventList.swift in Sources */,
 				53232B6B21A360D00089AA27 /* Event.swift in Sources */,
 				53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */,
 				53232B6D21A36F740089AA27 /* EventCell.swift in Sources */,

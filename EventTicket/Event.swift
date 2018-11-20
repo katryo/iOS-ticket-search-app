@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Event {
+class Event: Codable {
     let name: String
-    let address: String
+    //let address: String
     
-    init(name: String, address: String) {
-        self.name = name
-        self.address = address
-    }
+//    init(name: String, address: String) {
+//        self.name = name
+//       // self.address = address
+//    }
 }
