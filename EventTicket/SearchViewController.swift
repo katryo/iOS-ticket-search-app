@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 class SearchViewController: UIViewController {
 
@@ -18,7 +19,46 @@ class SearchViewController: UIViewController {
     @IBAction func searchButtonPushed(_ sender: UIButton) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as UIViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as! EventsTableViewController
+        
+        var events: [Event] = []
+        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=34.0266&lng=-118.2831")
+
+        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+            if error != nil {
+                print("Error: \(error!.localizedDescription) \n")
+                SwiftSpinner.hide()
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("No data or no response")
+                SwiftSpinner.hide()
+                return
+            }
+            
+            if response.statusCode == 200 {
+                let decoder = JSONDecoder()
+                do {
+                    let eventList: EventList = try decoder.decode(EventList.self, from: data)
+                    events = eventList.events
+                    vc.events = events
+                    DispatchQueue.main.async {
+                        vc.tableView.reloadData()
+                        SwiftSpinner.hide()
+                    }
+                } catch {
+                    print("Failed to decode the JSON", error.localizedDescription)
+                    SwiftSpinner.hide()
+                }
+            } else {
+                print("Status code: \(response.statusCode)\n")
+                SwiftSpinner.hide()
+            }
+        }
+        
+        SwiftSpinner.show("Searching for events...")
+        task.resume()
         self.navigationController!.pushViewController(vc, animated: true)
         
     }

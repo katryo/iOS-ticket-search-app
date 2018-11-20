@@ -15,36 +15,7 @@ class EventsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=34.0266&lng=-118.2831")
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            if error != nil {
-                print("Error: \(error!.localizedDescription) \n")
-                return
-            }
-            
-            guard let data = data, let response = response as? HTTPURLResponse else {
-                print("No data or no response")
-                return
-            }
-            if response.statusCode == 200 {
-                let decoder = JSONDecoder()
-                print("here")
-                do {
-                    let eventList: EventList = try decoder.decode(EventList.self, from: data)
-                    self.events = eventList.events
-                    print(self.events.count)
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                } catch {
-                    print("Failed to decode the JSON", error.localizedDescription)
-                }
-            } else {
-                print("Status code: \(response.statusCode)\n")
-            }
-        }
-        task.resume()
+        
         
         
 //        self.events = [Event(name: "abc", address: "Los Angeles, CA 90007, USA"), Event(name: "Super event", address: "San Francisco, CA 10002, USA")]
