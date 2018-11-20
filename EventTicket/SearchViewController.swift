@@ -26,6 +26,7 @@ class SearchViewController: UIViewController {
 
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
             if error != nil {
+                // TODO: Error handling
                 print("Error: \(error!.localizedDescription) \n")
                 SwiftSpinner.hide()
                 return
@@ -34,6 +35,7 @@ class SearchViewController: UIViewController {
             guard let data = data, let response = response as? HTTPURLResponse else {
                 print("No data or no response")
                 SwiftSpinner.hide()
+                // TODO: Error handling
                 return
             }
             
@@ -49,9 +51,11 @@ class SearchViewController: UIViewController {
                     }
                 } catch {
                     print("Failed to decode the JSON", error.localizedDescription)
+                    // TODO: Error handling
                     SwiftSpinner.hide()
                 }
             } else {
+                // TODO: Error handling
                 print("Status code: \(response.statusCode)\n")
                 SwiftSpinner.hide()
             }
