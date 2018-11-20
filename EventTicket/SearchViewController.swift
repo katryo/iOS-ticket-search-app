@@ -15,6 +15,13 @@ class SearchViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func searchButtonPushed(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as UIViewController
+        self.navigationController!.pushViewController(vc, animated: true)
+        
+    }
+    
 }
 
