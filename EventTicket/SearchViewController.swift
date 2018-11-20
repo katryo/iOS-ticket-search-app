@@ -13,7 +13,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     
     let units = ["miles" ,"kms"]
-    let categories = ["Music", "Sports"]
+    let categories = ["All", "Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous"]
     let categoryPicker = UIPickerView()
     @IBOutlet weak var keywordField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
@@ -24,9 +24,28 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
         
+        let pickerBar = UIToolbar()
+        pickerBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneClicked))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClicked))
+        pickerBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        categoryField.inputAccessoryView = pickerBar
+        
         unitPicker.delegate = self
         unitPicker.dataSource = self
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    @objc
+    func doneClicked() {
+        categoryField.resignFirstResponder()
+    }
+    
+    @objc
+    func cancelClicked() {
+        categoryField.resignFirstResponder()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
