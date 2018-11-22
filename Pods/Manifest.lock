@@ -1,24 +1,28 @@
 PODS:
+  - EasyToast (2.0.2)
   - Kingfisher (4.10.1)
   - McPicker (2.0.0)
   - SwiftSpinner (1.6.2)
 
 DEPENDENCIES:
+  - EasyToast
   - Kingfisher
   - McPicker
   - SwiftSpinner
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - EasyToast
     - Kingfisher
     - McPicker
     - SwiftSpinner
 
 SPEC CHECKSUMS:
+  EasyToast: 2844de2158fe8d2313c6de81b5a858a909d82532
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   McPicker: 1d11ad8c07c337a16dd9397e45f321125304cbb0
   SwiftSpinner: 3a4c6dea425e5a31b908a8b1dd5dcd1ad4d96340
 
-PODFILE CHECKSUM: a9334f44cacfc17fd0b36ba6af5918564742edfa
+PODFILE CHECKSUM: d44ccf13ffd26d20d0007a3e683c4bbc7b43b748
 
 COCOAPODS: 1.5.3

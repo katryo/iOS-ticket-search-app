@@ -8,7 +8,7 @@ target 'EventTicket' do
   # Pods for EventTicket
   # pod 'Alamofire', '~> 4.7'
   pod "SwiftSpinner"
-  #  pod "EasyToast"
+  pod "EasyToast"
   #pod 'Alamofire-SwiftyJSON', '>= 3.0.0'
   pod 'McPicker'
   pod 'Kingfisher'

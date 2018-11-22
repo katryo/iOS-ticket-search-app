@@ -9,6 +9,7 @@
 import UIKit
 import SwiftSpinner
 import CoreLocation
+import EasyToast
 
 class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -86,12 +87,16 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == categoryPicker {
             categoryField.text = categories[row]
-        } else {
-            print("On no")
         }
     }
 
     @IBAction func searchButtonPushed(_ sender: UIButton) {
+        
+        if self.keywordField.text == nil || self.keywordField.text == "" {
+            self.view.showToast("Keyword and location are mandatory fields", position: .bottom, popTime: 4, dismissOnTap: false)
+            return
+        }
+        
         print(self.keywordField.text!)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
