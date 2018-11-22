@@ -165,7 +165,9 @@
                         <outlet property="categoryField" destination="Z3Q-tp-agu" id="1Lo-Ow-sF9"/>
                         <outlet property="currentLocationButton" destination="bxk-44-GQp" id="FyN-hc-vJz"/>
                         <outlet property="customLocationButton" destination="fhf-JV-HXc" id="iiz-S5-p3h"/>
+                        <outlet property="distanceField" destination="GG9-dm-6z8" id="EBU-dI-L3M"/>
                         <outlet property="keywordField" destination="MVd-iI-pQV" id="hFY-0r-Ycm"/>
+                        <outlet property="locationField" destination="TN7-VM-h59" id="I3e-Jz-4e1"/>
                         <outlet property="unitPicker" destination="iPz-Dy-Yym" id="uxl-lT-0aE"/>
                     </connections>
                 </viewController>

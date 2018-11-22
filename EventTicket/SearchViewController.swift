@@ -27,6 +27,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var customLocationButton: UIButton!
     
+    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var distanceField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.categoryField.inputView = categoryPicker
@@ -111,18 +113,55 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     @IBAction func searchButtonPushed(_ sender: UIButton) {
         
-        if self.keywordField.text == nil || self.keywordField.text == "" {
+        if self.keywordField.text == nil || self.keywordField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
             self.view.showToast("Keyword and location are mandatory fields", position: .bottom, popTime: 4, dismissOnTap: false)
             return
         }
         
+        let lat: Double
+        let lng: Double
+        
+        if self.isCurrentLocation {
+            if self.latitude == nil || self.longitude == nil {
+                self.view.showToast("Location not available", position: .bottom, popTime: 4, dismissOnTap: false)
+                return
+            }
+            lat = self.latitude!
+            lng = self.longitude!
+            search(lat: lat, lng: lng)
+        } else {
+            if self.locationField.text == nil || self.locationField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
+                self.view.showToast("Keyword and location are mandatory fields", position: .bottom, popTime: 4, dismissOnTap: false)
+                return
+            }
+            
+            // Get lat and lng for the location
+            lat = 12.3
+            lng = 45.6
+            search(lat: lat, lng: lng)
+        }
+
+    }
+    
+    private func search(lat: Double, lng: Double) {
         print(self.keywordField.text!)
+        
+        
+        let radius:Int
+        if self.distanceField.text != nil && !self.distanceField.text!.isEqual("") {
+            radius = Int(self.distanceField.text!)!
+        } else {
+            radius = 10
+        }
+        
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as! EventsTableViewController
         
         var events: [Event] = []
-        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=34.0266&lng=-118.2831")
+        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=\(lat)&lng=\(lng)&radius=\(radius)&unit=miles&keyword=\(self.keywordField.text!)")
+        // TODO: unit change
+        print(url)
 
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
             if error != nil {
@@ -150,7 +189,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                         SwiftSpinner.hide()
                     }
                 } catch {
-                    print("Failed to decode the JSON", error.localizedDescription)
+                    print("Failed to decode the JSON", error)
                     // TODO: Error handling
                     SwiftSpinner.hide()
                 }
