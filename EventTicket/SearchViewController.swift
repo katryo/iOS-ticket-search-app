@@ -18,11 +18,15 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var locationManager: CLLocationManager!
     var latitude: Double?
     var longitude: Double?
-
+    var isCurrentLocation = true
+    
     let categoryPicker = UIPickerView()
     @IBOutlet weak var keywordField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var unitPicker: UIPickerView!
+    @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var customLocationButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.categoryField.inputView = categoryPicker
@@ -52,6 +56,21 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         locationManager.delegate = self
         locationManager.requestLocation() // 一度きりの取得
         //}
+    }
+    
+    
+    
+    @IBAction func currentLocationClicked(_ sender: UIButton) {
+        isCurrentLocation = true
+        self.customLocationButton.setTitle("○", for: .normal)
+        self.currentLocationButton.setTitle("●", for: .normal)
+    }
+    
+    @IBAction func customLocationClicked(_ sender: UIButton) {
+        isCurrentLocation = false
+        
+        self.customLocationButton.setTitle("●", for: .normal)
+        self.currentLocationButton.setTitle("○", for: .normal)
     }
     
     @objc

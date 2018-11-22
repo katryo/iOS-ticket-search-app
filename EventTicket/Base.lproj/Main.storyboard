@@ -120,14 +120,20 @@
                                 <state key="normal" title="●">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="currentLocationClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GXn-5G-DRT"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhf-JV-HXc">
-                                <rect key="frame" x="196" y="419" width="52" height="30"/>
+                                <rect key="frame" x="196" y="412" width="52" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="○">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="customLocationClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1BM-gp-HFM"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type in the location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TN7-VM-h59">
                                 <rect key="frame" x="30" y="481" width="341" height="30"/>
@@ -157,6 +163,8 @@
                     <navigationItem key="navigationItem" id="IiS-4R-Csg"/>
                     <connections>
                         <outlet property="categoryField" destination="Z3Q-tp-agu" id="1Lo-Ow-sF9"/>
+                        <outlet property="currentLocationButton" destination="bxk-44-GQp" id="FyN-hc-vJz"/>
+                        <outlet property="customLocationButton" destination="fhf-JV-HXc" id="iiz-S5-p3h"/>
                         <outlet property="keywordField" destination="MVd-iI-pQV" id="hFY-0r-Ycm"/>
                         <outlet property="unitPicker" destination="iPz-Dy-Yym" id="uxl-lT-0aE"/>
                     </connections>
