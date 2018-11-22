@@ -11,11 +11,12 @@ import SwiftSpinner
 import CoreLocation
 
 class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
     
     let units = ["miles" ,"kms"]
     let categories = ["All", "Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous"]
     var locationManager: CLLocationManager!
+    var latitude: Double?
+    var longitude: Double?
 
     let categoryPicker = UIPickerView()
     @IBOutlet weak var keywordField: UITextField!
@@ -145,17 +146,19 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 }
 
 extension SearchViewController: CLLocationManagerDelegate {
-    public func locationManager(didUpdateLocations locations: [CLLocation]) {
-        
-        for location in locations {
-            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
-        }
-    }
+//    public func locationManager(didUpdateLocations locations: [CLLocation]) {
+//
+//        for location in locations {
+//            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
+//        }
+//    }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         for location in locations {
-            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
+            print("latitude:\(location.coordinate.latitude) longitude:\(location.coordinate.longitude) time:\(location.timestamp.description)")
+            self.longitude = location.coordinate.longitude
+            self.latitude = location.coordinate.latitude
         }
     }
     
@@ -166,23 +169,23 @@ extension SearchViewController: CLLocationManagerDelegate {
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
-            print("ユーザーはこのアプリケーションに関してまだ選択を行っていません")
-            // 許可を求めるコードを記述する（後述）
+            print("Not yet determined")
+            locationManager.requestWhenInUseAuthorization()
             break
         case .denied:
-            print("ローケーションサービスの設定が「無効」になっています (ユーザーによって、明示的に拒否されています）")
+            print("No location")
             // 「設定 > プライバシー > 位置情報サービス で、位置情報サービスの利用を許可して下さい」を表示する
             break
         case .restricted:
-            print("このアプリケーションは位置情報サービスを使用できません(ユーザによって拒否されたわけではありません)")
+            print("Can not locate the device")
             // 「このアプリは、位置情報を取得できないために、正常に動作できません」を表示する
             break
         case .authorizedAlways:
-            print("常時、位置情報の取得が許可されています。")
+            print("Location detection is authorized")
             // 位置情報取得の開始処理
             break
         case .authorizedWhenInUse:
-            print("起動時のみ、位置情報の取得が許可されています。")
+            print("authorized when in use")
             // 位置情報取得の開始処理
             break
         }
