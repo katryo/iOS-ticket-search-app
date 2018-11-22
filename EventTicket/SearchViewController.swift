@@ -135,17 +135,50 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 return
             }
             
-            // Get lat and lng for the location
-            lat = 12.3
-            lng = 45.6
-            search(lat: lat, lng: lng)
+            fetchLatLng(address: self.locationField.text!)
         }
-
     }
+    
+    private func fetchLatLng(address: String) {
+        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/latlng?address=\(self.locationField.text!)")
+        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+            if error != nil {
+                // TODO: Error handling
+                print("Error: \(error!.localizedDescription) \n")
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("No data or no response")
+                // TODO: Error handling
+                return
+            }
+            
+            if response.statusCode == 200 {
+                let decoder = JSONDecoder()
+                let latLng: LatLng
+                do {
+                    latLng = try decoder.decode(LatLng.self, from: data)
+                } catch {
+                    print("Failed to decode the JSON", error)
+                    // TODO: Error handling
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.search(lat: latLng.lat, lng: latLng.lng)
+                }
+            } else {
+                // TODO: Error handling
+                print("Status code: \(response.statusCode)\n")
+            }
+        }
+        task.resume()
+    }
+    
     
     private func search(lat: Double, lng: Double) {
         print(self.keywordField.text!)
-        
         
         let radius:Int
         if self.distanceField.text != nil && !self.distanceField.text!.isEqual("") {
@@ -200,9 +233,11 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
         }
         
+        
         SwiftSpinner.show("Searching for events...")
         task.resume()
         self.navigationController!.pushViewController(vc, animated: true)
+        
         
     }
     
