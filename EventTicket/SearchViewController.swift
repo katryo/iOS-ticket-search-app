@@ -20,7 +20,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var latitude: Double?
     var longitude: Double?
     var isCurrentLocation = true
-    var suggestions = ["abc", "edf", "ww", "baasda", "qq"]
+    var suggestions: [String] = []
 //    var suggestions: [String] = []
     
     var suggestionsTableView: UITableView!
@@ -277,6 +277,25 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             radius = 10
         }
         
+        // ["All", "Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous"]
+        let category: String
+        switch self.categoryField.text {
+        case categories[0]:
+            category = "all"
+        case categories[1]:
+            category = "music"
+        case categories[2]:
+            category = "sports"
+        case categories[3]:
+            category = "arts"
+        case categories[4]:
+            category = "film"
+        case categories[5]:
+            category = "miscellaneous"
+        default:
+            print("Not a valid category")
+            return
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as! EventsTableViewController
@@ -289,7 +308,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             URLQueryItem(name: "lng", value: String(lng)),
             URLQueryItem(name: "radius", value: String(radius)),
             URLQueryItem(name: "unit", value: self.unit),
-            URLQueryItem(name: "keyword", value: self.keywordField.text!)]
+            URLQueryItem(name: "keyword", value: self.keywordField.text!),
+            URLQueryItem(name: "category", value: category)]
         print(components.url!)
 
         let task = URLSession.shared.dataTask(with: components.url!) { data, response, error in
