@@ -20,8 +20,13 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var latitude: Double?
     var longitude: Double?
     var isCurrentLocation = true
+    var suggestions = ["abc", "edf", "ww", "baasda", "qq"]
+//    var suggestions: [String] = []
     
+    var suggestionsTableView: UITableView!
     let categoryPicker = UIPickerView()
+    var suggestionThrottleQueue = ThrottleQueue()
+    
     @IBOutlet weak var keywordField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var unitPicker: UIPickerView!
@@ -32,6 +37,22 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var distanceField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.keywordField.delegate = self
+
+        suggestionsTableView = UITableView(
+            frame: CGRect(
+                x: self.keywordField.frame.minX,
+                y: self.keywordField.frame.maxY,
+                width: self.keywordField.frame.width,
+                height: 0
+            )
+        )
+        suggestionsTableView.delegate = self
+        suggestionsTableView.dataSource = self
+        self.view.addSubview(suggestionsTableView)
+        suggestionsTableView.reloadData()
+        
         self.categoryField.inputView = categoryPicker
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
@@ -59,6 +80,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         locationManager.delegate = self
         locationManager.requestLocation() // 一度きりの取得
         //}
+        
+        print(suggestionsTableView.contentSize)
     }
     
     
@@ -113,6 +136,18 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             self.unit = units[row]
         }
     }
+//
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        suggestionsTableView.frame = CGRect(
+//            x: self.keywordField.frame.minX,
+//            y: self.keywordField.frame.maxY,
+//            width: self.keywordField.frame.width,
+//            height: 400
+//        )
+//        self.view.layoutIfNeeded()
+//    }
 
     @IBAction func searchButtonPushed(_ sender: UIButton) {
         
@@ -179,6 +214,55 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         task.resume()
     }
     
+    private func fetchSuggestions(keyword: String) {
+        print("fetchSugges")
+        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/suggestions")!
+        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+        components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
+        
+        let task = URLSession.shared.dataTask(with: components.url!) { data, response, error in
+            if error != nil {
+                // TODO: Error handling
+                print("Error: \(error!.localizedDescription) \n")
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("No data or no response")
+                // TODO: Error handling
+                return
+            }
+            
+            if response.statusCode == 200 {
+                let decoder = JSONDecoder()
+                do {
+                    let suggestionList: SuggestionList = try decoder.decode(SuggestionList.self, from: data)
+                    self.suggestions = suggestionList.suggestions
+                    
+                    DispatchQueue.main.async {
+                        self.suggestionsTableView.frame = CGRect(
+                            x: self.keywordField.frame.minX,
+                            y: self.keywordField.frame.maxY,
+                            width: self.keywordField.frame.width,
+                            height: CGFloat(44 * self.suggestions.count)
+                        )
+                        self.suggestionsTableView.reloadData()
+                    }
+                    return
+                } catch {
+                    print("Failed to decode the JSON", error)
+                    // TODO: Error handling
+                    return
+                }
+
+            } else {
+                // TODO: Error handling
+                print("Status code: \(response.statusCode)\n")
+            }
+        }
+        task.resume()
+    }
+    
     
     private func search(lat: Double, lng: Double) {
         print(self.keywordField.text!)
@@ -195,11 +279,17 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as! EventsTableViewController
         
         var events: [Event] = []
-        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=\(lat)&lng=\(lng)&radius=\(radius)&unit=\(self.unit)&keyword=\(self.keywordField.text!)")
-        
-        print(url)
+        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events")!
+        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "lat", value: String(lat)),
+            URLQueryItem(name: "lng", value: String(lng)),
+            URLQueryItem(name: "radius", value: String(radius)),
+            URLQueryItem(name: "unit", value: self.unit),
+            URLQueryItem(name: "keyword", value: self.keywordField.text!)]
+        print(components.url!)
 
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+        let task = URLSession.shared.dataTask(with: components.url!) { data, response, error in
             if error != nil {
                 // TODO: Error handling
                 print("Error: \(error!.localizedDescription) \n")
@@ -243,7 +333,57 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         
     }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.0
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        print("ww")
+//        self.suggestionsTableView.frame = 300
+//        self.suggestionsTableView.reloadData()
+        if let text = textField.text {
+            self.suggestionThrottleQueue.throttle {
+                self.fetchSuggestions(keyword: text)
+            }
+            //let textRange = Range(range, in: text) {
+            //let updatedText = text.replacingCharacters(in: textRange,
+                                      //                 with: string)
+            // myvalidator(text: updatedText)
+        }
+        return true
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // TODO: Your app can do something when textField finishes editing
+        print("The textField ended editing. Do something based on app requirements.")
+    }
+}
+
+extension SearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("abc", self.suggestions.count)
+        return self.suggestions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: "SuggestionCell")
+        print("cell")
+        cell.textLabel?.text = self.suggestions[indexPath.row]
+        return cell
+    }
+
 }
 
 extension SearchViewController: CLLocationManagerDelegate {
