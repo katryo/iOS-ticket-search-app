@@ -37,6 +37,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet weak var distanceField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationField.isEnabled = false
         
         self.keywordField.delegate = self
 
@@ -88,13 +89,14 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBAction func currentLocationClicked(_ sender: UIButton) {
         isCurrentLocation = true
+        locationField.isEnabled = false
         self.customLocationButton.setTitle("○", for: .normal)
         self.currentLocationButton.setTitle("●", for: .normal)
     }
     
     @IBAction func customLocationClicked(_ sender: UIButton) {
         isCurrentLocation = false
-        
+        locationField.isEnabled = true
         self.customLocationButton.setTitle("●", for: .normal)
         self.currentLocationButton.setTitle("○", for: .normal)
     }
@@ -133,7 +135,11 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         if pickerView == categoryPicker {
             categoryField.text = categories[row]
         } else {
-            self.unit = units[row]
+            if units[row] == "kms" {
+                self.unit = "km"
+            } else {
+                self.unit = "miles"
+            }
         }
     }
 //
@@ -268,8 +274,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     
     private func search(lat: Double, lng: Double) {
-        print(self.keywordField.text!)
-        
         let radius:Int
         if self.distanceField.text != nil && !self.distanceField.text!.isEqual("") {
             radius = Int(self.distanceField.text!)!
