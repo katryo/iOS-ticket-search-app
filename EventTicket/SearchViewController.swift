@@ -78,7 +78,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         //locationManager.desiredAccuracy = kCLLocationAccuracyBest
         //locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
-        locationManager.requestLocation() // 一度きりの取得
+        locationManager.requestLocation()
         //}
         
         print(suggestionsTableView.contentSize)
@@ -178,8 +178,12 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     private func fetchLatLng(address: String) {
-        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/latlng?address=\(self.locationField.text!)")
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/latlng")!
+        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+        components.queryItems = [URLQueryItem(name: "address", value: address)]
+        
+        let url = components.url!
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if error != nil {
                 // TODO: Error handling
                 print("Error: \(error!.localizedDescription) \n")
@@ -215,7 +219,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     private func fetchSuggestions(keyword: String) {
-        print("fetchSugges")
         let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/suggestions")!
         var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
@@ -337,7 +340,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.keywordField.text = self.suggestions[indexPath.row]
+        self.view.endEditing(true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -349,11 +353,11 @@ extension SearchViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        print("ww")
 //        self.suggestionsTableView.frame = 300
 //        self.suggestionsTableView.reloadData()
         if let text = textField.text {
             self.suggestionThrottleQueue.throttle {
+                self.suggestionsTableView.isHidden = false
                 self.fetchSuggestions(keyword: text)
             }
             //let textRange = Range(range, in: text) {
@@ -364,22 +368,24 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
     
-    // MARK: UITextFieldDelegate
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // TODO: Your app can do something when textField finishes editing
-        print("The textField ended editing. Do something based on app requirements.")
+        self.suggestionsTableView.isHidden = true
     }
 }
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("abc", self.suggestions.count)
         return self.suggestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: "SuggestionCell")
-        print("cell")
         cell.textLabel?.text = self.suggestions[indexPath.row]
         return cell
     }

@@ -12,7 +12,7 @@ class ThrottleQueue {
     private let queue = DispatchQueue.main
     private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
     private var prevStartDate: Date = Date.distantPast
-    private let timeBeforeStart: TimeInterval = TimeInterval(exactly: 1)!
+    private let timeBeforeStart: TimeInterval = TimeInterval(exactly: 0.6)!
     
     //init() {}
     
@@ -22,7 +22,7 @@ class ThrottleQueue {
             self?.prevStartDate = Date()
             lambda()
         }
-        let waitTime = prevStartDate.timeIntervalSinceNow > self.timeBeforeStart ? 0.0 : 1.0
+        let waitTime = prevStartDate.timeIntervalSinceNow > self.timeBeforeStart ? 0.0 : 0.6
         queue.asyncAfter(deadline: .now() + waitTime, execute: workItem)
     }
 }
