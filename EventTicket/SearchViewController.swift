@@ -15,6 +15,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     let units = ["miles" ,"kms"]
     let categories = ["All", "Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous"]
+    var unit = "miles"
     var locationManager: CLLocationManager!
     var latitude: Double?
     var longitude: Double?
@@ -108,6 +109,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == categoryPicker {
             categoryField.text = categories[row]
+        } else {
+            self.unit = units[row]
         }
     }
 
@@ -192,8 +195,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         let vc = storyboard.instantiateViewController(withIdentifier: "EventsTableView") as! EventsTableViewController
         
         var events: [Event] = []
-        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=\(lat)&lng=\(lng)&radius=\(radius)&unit=miles&keyword=\(self.keywordField.text!)")
-        // TODO: unit change
+        let url = URL(string: "https://ios-event-ticket-usc.appspot.com/api/events?lat=\(lat)&lng=\(lng)&radius=\(radius)&unit=\(self.unit)&keyword=\(self.keywordField.text!)")
+        
         print(url)
 
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
@@ -244,13 +247,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 }
 
 extension SearchViewController: CLLocationManagerDelegate {
-//    public func locationManager(didUpdateLocations locations: [CLLocation]) {
-//
-//        for location in locations {
-//            print("緯度:\(location.coordinate.latitude) 経度:\(location.coordinate.longitude) 取得時刻:\(location.timestamp.description)")
-//        }
-//    }
-    
+
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         for location in locations {

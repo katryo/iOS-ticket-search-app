@@ -236,8 +236,97 @@
             </objects>
             <point key="canvasLocation" x="293.60000000000002" y="-355.7721139430285"/>
         </scene>
+        <!--Artist(s)-->
+        <scene sceneID="8fU-RH-1xX">
+            <objects>
+                <viewController id="kQm-ZV-8uf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pcV-g9-wMk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="2hG-p8-jWE"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Artist(s)" image="contacts" id="MXG-uI-KHt"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yYu-pQ-Byu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1901" y="-125"/>
+        </scene>
+        <!--Upcoming-->
+        <scene sceneID="lFX-qz-jXj">
+            <objects>
+                <viewController id="pcm-1W-Dkp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rtl-ZT-7Ot">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="i2J-PA-RwM"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Upcoming" image="calendar" landscapeImage="calendar" largeContentSizeImage="calendar" id="jAI-aq-zLi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eKD-uo-RFz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2796" y="20"/>
+        </scene>
+        <!--Info-->
+        <scene sceneID="Xne-f9-RZZ">
+            <objects>
+                <viewController id="qdO-GO-F2O" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f1a-16-SKA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="cSF-ZO-Q1c"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Info" image="info" id="oyv-Gn-oI3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Fk-36-sz9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1901" y="-774"/>
+        </scene>
+        <!--Venue-->
+        <scene sceneID="2N7-4u-xDS">
+            <objects>
+                <viewController id="dmC-LP-rEm" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6OQ-TS-Lox">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="XCQ-gd-Rq1"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Venue" image="location" id="UHu-ck-wkB"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sk2-hp-6mb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2607" y="-679"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="ZC3-6N-PWk">
+            <objects>
+                <tabBarController storyboardIdentifier="EventDetailTBC" id="1Ps-76-2bF" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GXi-Kg-KyR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="qdO-GO-F2O" kind="relationship" relationship="viewControllers" id="c8T-jV-gHq"/>
+                        <segue destination="kQm-ZV-8uf" kind="relationship" relationship="viewControllers" id="fjJ-ny-Qlq"/>
+                        <segue destination="dmC-LP-rEm" kind="relationship" relationship="viewControllers" id="7pa-Dv-r5c"/>
+                        <segue destination="pcm-1W-Dkp" kind="relationship" relationship="viewControllers" id="pik-aa-8oP"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ai5-Jg-3PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1120" y="-543"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="calendar" width="72" height="72"/>
+        <image name="contacts" width="72" height="72"/>
+        <image name="info" width="72" height="72"/>
+        <image name="location" width="72" height="72"/>
         <image name="sports" width="384" height="384"/>
     </resources>
 </document>

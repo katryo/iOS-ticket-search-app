@@ -37,6 +37,14 @@ class EventsTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return self.events.count
     }
+    
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "EventDetailTBC")
+        self.navigationController!.pushViewController(vc, animated: true)
+
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
