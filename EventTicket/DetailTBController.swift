@@ -11,13 +11,29 @@ import UIKit
 class DetailTBController: UITabBarController {
     var event: Event!
     
+    func updateButtons() {
+        let nc = navigationController as! RootNavigationController
+        let favoriteButton: UIBarButtonItem
+        if nc.hasFavorited(event: event!) {
+            favoriteButton = UIBarButtonItem(image: #imageLiteral(resourceName: "favorite-filled"), style: .plain, target: self, action: #selector(unfavClicked))
+        } else {
+            favoriteButton = UIBarButtonItem(image: #imageLiteral(resourceName: "favorite-empty"), style: .plain, target: self, action: #selector(favClicked))
+        }
+        
+        let twitterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "twitter"), style: .plain, target: self, action: #selector(twitterClicked))
+        navigationItem.rightBarButtonItems = [favoriteButton, twitterButton]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "favorite-empty"), style: .plain, target: self, action: #selector(favClicked))
-        let twitterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "twitter"), style: .plain, target: self, action: #selector(twitterClicked))
-        navigationItem.rightBarButtonItems = [button, twitterButton]
-        print("vdl")
+        updateButtons()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateButtons()
+    }
+
     
     @objc
     func twitterClicked() {
@@ -28,9 +44,18 @@ class DetailTBController: UITabBarController {
     }
     
     @objc
+    func unfavClicked() {
+        let nc = navigationController as! RootNavigationController
+        nc.removeFavorite(event: event)
+        viewDidAppear(false)
+    }
+    
+    @objc
     func favClicked() {
         let nc = navigationController as! RootNavigationController
         nc.updateFavorites(event: event)
+        viewDidAppear(false)
+
 //        var found = false
 //        for (i, favoriteEvent) in nc.favoriteEventList!.events.enumerated() {
 //            if favoriteEvent === event {

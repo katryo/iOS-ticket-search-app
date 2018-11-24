@@ -28,6 +28,15 @@ class RootNavigationController: UINavigationController {
         }
     }
     
+    func hasFavorited(event: Event) -> Bool {
+        for favorited in favoriteEventList!.events {
+            if favorited === event {
+                return true
+            }
+        }
+        return false
+    }
+    
     func removeFavorite(event: Event) {
         for (i, favoriteEvent) in favoriteEventList!.events.enumerated() {
             if favoriteEvent === event {
