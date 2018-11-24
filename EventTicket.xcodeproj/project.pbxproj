@@ -17,6 +17,8 @@
 		53A9A25121A8A47A002095F3 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25021A8A47A002095F3 /* InfoViewController.swift */; };
 		53A9A25321A8C48C002095F3 /* BaseDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25221A8C48C002095F3 /* BaseDetailController.swift */; };
 		53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */; };
+		53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25621A8F341002095F3 /* SegmentedViewController.swift */; };
+		53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */; };
 		53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */; };
 		53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B720219E589E009F5DB3 /* AppDelegate.swift */; };
 		53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B722219E589E009F5DB3 /* SearchViewController.swift */; };
@@ -61,6 +63,8 @@
 		53A9A25021A8A47A002095F3 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		53A9A25221A8C48C002095F3 /* BaseDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDetailController.swift; sourceTree = "<group>"; };
 		53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		53A9A25621A8F341002095F3 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
+		53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventsTableViewController.swift; sourceTree = "<group>"; };
 		53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		53E4B71D219E589E009F5DB3 /* EventTicket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventTicket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E4B720219E589E009F5DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				53E4B722219E589E009F5DB3 /* SearchViewController.swift */,
 				53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */,
 				53E4B724219E589E009F5DB3 /* Main.storyboard */,
+				53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */,
+				53A9A25621A8F341002095F3 /* SegmentedViewController.swift */,
 				53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */,
 				53A9A25021A8A47A002095F3 /* InfoViewController.swift */,
 				53A9A25221A8C48C002095F3 /* BaseDetailController.swift */,
@@ -435,6 +441,7 @@
 				53A9A24921A773D5002095F3 /* LatLng.swift in Sources */,
 				53A9A24D21A8877F002095F3 /* ThrottleQueue.swift in Sources */,
 				53232B6F21A3966F0089AA27 /* EventList.swift in Sources */,
+				53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */,
 				53232B6B21A360D00089AA27 /* Event.swift in Sources */,
 				53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */,
 				53A9A24B21A780FC002095F3 /* SuggestionList.swift in Sources */,
@@ -443,6 +450,7 @@
 				53232B6D21A36F740089AA27 /* EventCell.swift in Sources */,
 				53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */,
 				53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */,
+				53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
