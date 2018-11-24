@@ -10,15 +10,22 @@ import UIKit
 
 class FavoriteEventsTableViewController: BaseEventsTableViewController {
 
+    @IBOutlet var noFavoritesView: UIView!
     override func viewDidLoad() {
-        print("vdlll")
         super.viewDidLoad()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("vwa")
         let nvc = navigationController as! RootNavigationController
         self.events = nvc.favoriteEventList!.events
+        if self.events.count == 0 {
+            tableView.backgroundView = noFavoritesView
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
         self.tableView.reloadData()
     }
     
