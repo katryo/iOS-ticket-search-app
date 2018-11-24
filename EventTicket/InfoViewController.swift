@@ -8,8 +8,9 @@
 
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoViewController: BaseDetailController {
 
+    @IBOutlet weak var ticketmasterButton: UIButton!
     @IBOutlet weak var artistsLabel: UILabel!
     @IBOutlet weak var venueNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -45,10 +46,12 @@ class InfoViewController: UIViewController {
         
         ticketStatusLabel.text = tbController.event.ticketStatus
         
-        print("seatmap")
-        print(tbController.event.seatmap)
         if tbController.event.seatmap == URL(string: "N/A") {
             seatmapButton.titleLabel!.text = "N/A"
+        }
+        
+        if tbController.event.url == URL(string: "N/A") {
+            ticketmasterButton.titleLabel!.text = "N/A"
         }
     }
     

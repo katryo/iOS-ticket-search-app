@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Root Navigation Controller-->
         <scene sceneID="Dt1-9x-6QN">
             <objects>
-                <navigationController id="2N4-nS-nWO" sceneMemberID="viewController">
+                <navigationController id="2N4-nS-nWO" customClass="RootNavigationController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BEh-eU-mXY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -268,7 +268,7 @@
             </objects>
             <point key="canvasLocation" x="2796" y="20"/>
         </scene>
-        <!--Info-->
+        <!--Title-->
         <scene sceneID="Xne-f9-RZZ">
             <objects>
                 <viewController id="qdO-GO-F2O" customClass="InfoViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
@@ -397,12 +397,14 @@
                         <viewLayoutGuide key="safeArea" id="cSF-ZO-Q1c"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Info" image="info" id="oyv-Gn-oI3"/>
+                    <navigationItem key="navigationItem" title="Title" id="vtS-Uz-13y"/>
                     <connections>
                         <outlet property="artistsLabel" destination="NCm-7b-fyg" id="7fh-To-IHk"/>
                         <outlet property="categoryLabel" destination="HN6-ij-k5O" id="p2O-vO-lj3"/>
                         <outlet property="priceRangeLabel" destination="ru9-mu-mDX" id="xV7-xv-5TG"/>
                         <outlet property="seatmapButton" destination="qIW-fW-Owx" id="gd6-oP-JfI"/>
                         <outlet property="ticketStatusLabel" destination="I6P-MU-led" id="pUs-qR-DQJ"/>
+                        <outlet property="ticketmasterButton" destination="Xel-dV-jDe" id="3Sa-EV-ctQ"/>
                         <outlet property="timeLabel" destination="EHF-gp-mnS" id="fNH-xE-wt1"/>
                         <outlet property="venueNameLabel" destination="9Re-Rm-xxr" id="1Hh-j6-eJj"/>
                     </connections>
