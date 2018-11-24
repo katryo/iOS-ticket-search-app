@@ -85,13 +85,15 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         print(suggestionsTableView.contentSize)
     }
     
-    
-    
-    @IBAction func currentLocationClicked(_ sender: UIButton) {
+    private func chooseCurrentLocation() {
         isCurrentLocation = true
         locationField.isEnabled = false
         self.customLocationButton.setTitle("○", for: .normal)
         self.currentLocationButton.setTitle("●", for: .normal)
+    }
+    
+    @IBAction func currentLocationClicked(_ sender: UIButton) {
+        chooseCurrentLocation()
     }
     
     @IBAction func customLocationClicked(_ sender: UIButton) {
@@ -155,6 +157,16 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 //        self.view.layoutIfNeeded()
 //    }
 
+    @IBAction func clearButtonPushed(_ sender: UIButton) {
+        self.keywordField.text = nil
+        self.categoryField.text = categories[0]
+        self.distanceField.text = nil
+        chooseCurrentLocation()
+        self.locationField.text = nil
+        // TODO: CLEAR picker, location
+        self.unitPicker.selectRow(0, inComponent: 0, animated: true)
+    }
+    
     @IBAction func searchButtonPushed(_ sender: UIButton) {
         
         if self.keywordField.text == nil || self.keywordField.text!.trimmingCharacters(in: .whitespaces).isEmpty {

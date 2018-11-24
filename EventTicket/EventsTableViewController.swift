@@ -8,6 +8,7 @@
 
 
 import UIKit
+import EasyToast
 
 protocol EventCellProtocol {
     func toggleFavoriteButton(sender: UIButton)
@@ -20,9 +21,11 @@ class EventsTableViewController: BaseEventsTableViewController, EventCellProtoco
         let nc = navigationController as! RootNavigationController
         if nc.hasFavorited(event: event) {
             nc.removeFavorite(event: event)
+            self.view.showToast("\(event.name) was removed from favorites", position: .bottom, popTime: 4, dismissOnTap: false)
             sender.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
         } else {
             nc.addFavorites(event: event)
+            self.view.showToast("\(event.name) was added to favorites", position: .bottom, popTime: 4, dismissOnTap: false)
             sender.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
         }
     }
