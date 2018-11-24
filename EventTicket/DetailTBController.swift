@@ -13,7 +13,7 @@ class DetailTBController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "favorite-empty"), style: .plain, target: self, action: #selector(twitterClicked))
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "favorite-empty"), style: .plain, target: self, action: #selector(favClicked))
         let twitterButton = UIBarButtonItem(image: #imageLiteral(resourceName: "twitter"), style: .plain, target: self, action: #selector(twitterClicked))
         navigationItem.rightBarButtonItems = [button, twitterButton]
         print("vdl")
@@ -29,7 +29,25 @@ class DetailTBController: UITabBarController {
     
     @objc
     func favClicked() {
+        let nc = navigationController as! RootNavigationController
+        print("favCli")
+        print(nc.favoriteEventList!.events.count)
         
+        var found = false
+        for (i, favoriteEvent) in nc.favoriteEventList!.events.enumerated() {
+            if favoriteEvent === event {
+                nc.favoriteEventList!.events.remove(at: i)
+                found = true
+                break
+            }
+        }
+        
+        if !found {
+            nc.favoriteEventList!.events.append(event)
+        }
+        
+        let data = try? JSONEncoder().encode(nc.favoriteEventList)
+        UserDefaults.standard.set(data, forKey:"favoriteEvents")
     }
  
 }
