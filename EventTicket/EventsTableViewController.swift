@@ -10,12 +10,21 @@
 import UIKit
 
 class EventsTableViewController: BaseEventsTableViewController {
-//    var events: [Event] = []
+    
+    
+    @IBOutlet var noResultsLabel: UILabel!
+    //    var events: [Event] = []
 //
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if self.events.count == 0 {
+            tableView.backgroundView = noResultsLabel
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+    }
 //
 //
 //    override func numberOfSections(in tableView: UITableView) -> Int {

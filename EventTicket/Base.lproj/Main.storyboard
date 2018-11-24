@@ -139,7 +139,7 @@
                     <viewLayoutGuide key="safeArea" id="Uxg-0p-DCg"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-542.02898550724638" y="378.34821428571428"/>
+            <point key="canvasLocation" x="-561" y="1155"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -338,8 +338,19 @@
                             <outlet property="delegate" destination="h1a-qB-Vf4" id="Lwf-sM-7k2"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="noResultsLabel" destination="62s-Ao-WJC" id="7cI-KT-pWd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yVU-lx-hcR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="62s-Ao-WJC">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </objects>
             <point key="canvasLocation" x="465" y="-358"/>
         </scene>
