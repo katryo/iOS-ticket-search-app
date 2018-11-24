@@ -14,9 +14,15 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var venueNameLabel: UILabel!
     @IBOutlet weak var eventNameLabel: UILabel!
     @IBOutlet weak var thumbnailView: UIImageView!
+    
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    var favoriteDelegate: EventCellProtocol?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -25,5 +31,8 @@ class EventCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    @IBAction func favoriteButtonClicked(_ sender: UIButton) {
+        favoriteDelegate!.toggleFavoriteButton(sender: sender)
+    }
+    
 }

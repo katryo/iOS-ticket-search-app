@@ -9,9 +9,38 @@
 
 import UIKit
 
-class EventsTableViewController: BaseEventsTableViewController {
+protocol EventCellProtocol {
+    func toggleFavoriteButton(sender: UIButton)
+}
+
+class EventsTableViewController: BaseEventsTableViewController, EventCellProtocol {
+    func toggleFavoriteButton(sender: UIButton) {
+        let index: Int = sender.tag
+        let event = events[index]
+        let nc = navigationController as! RootNavigationController
+        if nc.hasFavorited(event: event) {
+            nc.removeFavorite(event: event)
+            sender.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
+        } else {
+            nc.addFavorites(event: event)
+            sender.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
+        }
+    }
     
-    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! EventCell
+        cell.favoriteButton.tag = indexPath.row
+        cell.favoriteDelegate = self
+        let nc = navigationController as! RootNavigationController
+        if nc.hasFavorited(event: events[indexPath.row]) {
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
+        } else {
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
+        }
+        return cell
+    }
+
+        
     @IBOutlet var noResultsLabel: UILabel!
     //    var events: [Event] = []
 //
@@ -40,6 +69,8 @@ class EventsTableViewController: BaseEventsTableViewController {
             tableView.separatorStyle = .singleLine
         }
     }
+    
+    
 //
 //
 //    override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,32 +92,5 @@ class EventsTableViewController: BaseEventsTableViewController {
 //
 //    }
 //
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
-//
-//        cell.eventNameLabel.text = self.events[indexPath.row].name
-//        cell.venueNameLabel.text = self.events[indexPath.row].venueName
-//        cell.dateTimeLabel.text = self.events[indexPath.row].date + " " + self.events[indexPath.row].time
-//
-//        var thumbnail = UIImage(named: "sports")!
-//        switch self.events[indexPath.row].segment {
-//        case "Sports":
-//            thumbnail = UIImage(named: "sports")!
-//        case "Music":
-//            thumbnail = UIImage(named: "music")!
-//        case "Arts & Theatre":
-//            thumbnail = UIImage(named: "arts")!
-//        case "Film":
-//            thumbnail = UIImage(named: "film")!
-//        case "Miscellaneous":
-//            thumbnail = UIImage(named: "miscellaneous")!
-//        default:
-//            print("Segment \(self.events[indexPath.row].segment) not specified and I cannot see the thumbnail")
-//        }
-//        cell.thumbnailView.image = thumbnail
-//        // Configure the cell...
-//
-//        return cell
-//    }
 
 }
