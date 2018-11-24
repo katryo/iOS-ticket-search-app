@@ -10,6 +10,7 @@ import UIKit
 import SwiftSpinner
 import CoreLocation
 import EasyToast
+import McPicker
 
 class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -24,7 +25,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 //    var suggestions: [String] = []
     
     var suggestionsTableView: UITableView!
-    let categoryPicker = UIPickerView()
+//    let categoryPicker = UIPickerView()
     var suggestionThrottleQueue = ThrottleQueue()
     
     @IBOutlet weak var keywordField: UITextField!
@@ -54,22 +55,23 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.view.addSubview(suggestionsTableView)
         suggestionsTableView.reloadData()
         
-        self.categoryField.inputView = categoryPicker
-        categoryPicker.delegate = self
-        categoryPicker.dataSource = self
+//        self.categoryField.inputView = categoryPicker
+//        categoryPicker.delegate = self
+//        categoryPicker.dataSource = self
+//
+//        let pickerBar = UIToolbar()
+//        pickerBar.sizeToFit()
+//
+//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneClicked))
+//
+//        // Just fill the space
+//        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClicked))
+//        pickerBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+//        categoryField.inputAccessoryView = pickerBar
         
-        let pickerBar = UIToolbar()
-        pickerBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneClicked))
-        
-        // Just fill the space
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClicked))
-        pickerBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        categoryField.inputAccessoryView = pickerBar
-        
+        categoryField.delegate = self
         unitPicker.delegate = self
         unitPicker.dataSource = self
         // Do any additional setup after loading the view, typically from a nib.
@@ -84,6 +86,18 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         print(suggestionsTableView.contentSize)
     }
+    
+    
+    @IBAction func categoryFieldTouchedDown(_ sender: UITextField) {
+        McPicker.show(data: [categories]) {  [weak self] (selections: [Int : String]) -> Void in
+            if let name = selections[0] {
+                sender.text = name
+            }
+        }
+    }
+
+    
+    
     
     private func chooseCurrentLocation() {
         isCurrentLocation = true
@@ -118,31 +132,21 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == categoryPicker {
-            return self.categories.count
-        } else {
             return self.units.count
-        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == categoryPicker {
-            return categories[row]
-        } else {
             return units[row]
-        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == categoryPicker {
-            categoryField.text = categories[row]
-        } else {
+
             if units[row] == "kms" {
                 self.unit = "km"
             } else {
                 self.unit = "miles"
             }
-        }
+
     }
 //
 //    override func viewDidLayoutSubviews() {
@@ -389,11 +393,13 @@ extension SearchViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
+        if textField === keywordField {
+            
 //        self.suggestionsTableView.frame = 300
 //        self.suggestionsTableView.reloadData()
         if let text = textField.text {
+            self.suggestionsTableView.isHidden = false
             self.suggestionThrottleQueue.throttle {
-                self.suggestionsTableView.isHidden = false
                 self.fetchSuggestions(keyword: text)
             }
             //let textRange = Range(range, in: text) {
@@ -401,7 +407,21 @@ extension SearchViewController: UITextFieldDelegate {
                                       //                 with: string)
             // myvalidator(text: updatedText)
         }
+            
         return true
+        } else {
+            return true
+        }
+
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("shouldBegin")
+        if textField === categoryField {
+            return false
+        } else {
+            return true
+        }
     }
     
     
