@@ -19,6 +19,8 @@
 		53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */; };
 		53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25621A8F341002095F3 /* SegmentedViewController.swift */; };
 		53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */; };
+		53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */; };
+		53A9A25D21A90C5E002095F3 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */; };
 		53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */; };
 		53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B720219E589E009F5DB3 /* AppDelegate.swift */; };
 		53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B722219E589E009F5DB3 /* SearchViewController.swift */; };
@@ -65,6 +67,8 @@
 		53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		53A9A25621A8F341002095F3 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
 		53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventsTableViewController.swift; sourceTree = "<group>"; };
+		53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEventsTableViewController.swift; sourceTree = "<group>"; };
+		53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		53E4B71D219E589E009F5DB3 /* EventTicket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventTicket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E4B720219E589E009F5DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				53A9A25221A8C48C002095F3 /* BaseDetailController.swift */,
 				53A9A24E21A8A2F1002095F3 /* DetailTBController.swift */,
 				53232B6C21A36F740089AA27 /* EventCell.swift */,
+				53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */,
 				53E4B727219E58A1009F5DB3 /* Assets.xcassets */,
 				53E4B729219E58A1009F5DB3 /* LaunchScreen.storyboard */,
 				53E4B72C219E58A1009F5DB3 /* Info.plist */,
@@ -169,6 +174,7 @@
 				53232B6E21A3966F0089AA27 /* EventList.swift */,
 				53A9A24821A773D5002095F3 /* LatLng.swift */,
 				53A9A24A21A780FC002095F3 /* SuggestionList.swift */,
+				53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */,
 			);
 			path = EventTicket;
 			sourceTree = "<group>";
@@ -449,8 +455,10 @@
 				53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */,
 				53232B6D21A36F740089AA27 /* EventCell.swift in Sources */,
 				53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */,
+				53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */,
 				53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */,
 				53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */,
+				53A9A25D21A90C5E002095F3 /* FavoriteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

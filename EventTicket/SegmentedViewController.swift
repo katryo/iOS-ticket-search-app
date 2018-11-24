@@ -12,7 +12,8 @@ class SegmentedViewController: UIViewController {
 
     @IBOutlet weak var viewContainer: UIView!
     lazy var searchVC = storyboard!.instantiateViewController(withIdentifier: "SearchView") as! SearchViewController
-    lazy var favoriteVC = storyboard!.instantiateViewController(withIdentifier: "FavoriteEventsViewController")
+    lazy var favoriteVC = storyboard!.instantiateViewController(withIdentifier: "FavoriteEventsViewController") as! FavoriteEventsTableViewController
+    
     var currentVC: UIViewController?
     
     //var views: [UIView]!
@@ -41,6 +42,13 @@ class SegmentedViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let currentVC = currentVC {
+            currentVC.viewWillDisappear(animated)
+        }
+    }
+    
     func showCurrentView(_ idx: Int){
         if let vc = viewController(with: idx) {
             
@@ -50,6 +58,7 @@ class SegmentedViewController: UIViewController {
 //            vc.view.frame = self.contentView.bounds
             self.viewContainer.addSubview(vc.view)
             self.currentVC = vc
+            //self.currentVC!.viewWillAppear(false)
         }
     }
 
