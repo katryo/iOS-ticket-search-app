@@ -6,88 +6,94 @@
 //  Copyright © 2018 Denkinovel. All rights reserved.
 //
 
+
 import UIKit
+import EasyToast
 
-class EventsTableViewController: UITableViewController {
-    var events: [Event] = []
+protocol EventCellProtocol {
+    func toggleFavoriteButton(sender: UIButton)
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.events = [Event(name: "abc", address: "Los Angeles, CA 90007, USA"), Event(name: "Super event", address: "San Francisco, CA 10002, USA")]
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+class EventsTableViewController: BaseEventsTableViewController, EventCellProtocol {
+    func toggleFavoriteButton(sender: UIButton) {
+        let index: Int = sender.tag
+        let event = events[index]
+        let nc = navigationController as! RootNavigationController
+        if nc.hasFavorited(event: event) {
+            nc.removeFavorite(event: event)
+            self.view.showToast("\(event.name) was removed from favorites", position: .bottom, popTime: 4, dismissOnTap: false)
+            sender.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
+        } else {
+            nc.addFavorites(event: event)
+            self.view.showToast("\(event.name) was added to favorites", position: .bottom, popTime: 4, dismissOnTap: false)
+            sender.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
+        }
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.events.count
-    }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath)
-
-        cell.textLabel?.text = self.events[indexPath.row].name
-        
-        // Configure the cell...
-
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! EventCell
+        cell.favoriteButton.tag = indexPath.row
+        cell.favoriteDelegate = self
+        let nc = navigationController as! RootNavigationController
+        if nc.hasFavorited(event: events[indexPath.row]) {
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
+        } else {
+            cell.favoriteButton.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
+        }
         return cell
     }
- 
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        
+    @IBOutlet var noResultsLabel: UILabel!
+    //    var events: [Event] = []
+//
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if events.count == 0 {
+            tableView.backgroundView = noResultsLabel
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if events.count == 0 {
+            tableView.backgroundView = noResultsLabel
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    
+//
+//
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 1
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.events.count
+//    }
+//
+//    override func tableView(_ tableView: UITableView,
+//                            didSelectRowAt indexPath: IndexPath) {
+//
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "EventDetailTBC") as! DetailTBController
+//        vc.event = self.events[indexPath.row]
+//        self.navigationController!.pushViewController(vc, animated: true)
+//
+//    }
+//
 
 }

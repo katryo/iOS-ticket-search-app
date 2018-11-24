@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		53232B6B21A360D00089AA27 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6A21A360D00089AA27 /* Event.swift */; };
+		53232B6D21A36F740089AA27 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6C21A36F740089AA27 /* EventCell.swift */; };
+		53232B6F21A3966F0089AA27 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6E21A3966F0089AA27 /* EventList.swift */; };
+		53A9A24921A773D5002095F3 /* LatLng.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24821A773D5002095F3 /* LatLng.swift */; };
+		53A9A24B21A780FC002095F3 /* SuggestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24A21A780FC002095F3 /* SuggestionList.swift */; };
+		53A9A24D21A8877F002095F3 /* ThrottleQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */; };
+		53A9A24F21A8A2F1002095F3 /* DetailTBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24E21A8A2F1002095F3 /* DetailTBController.swift */; };
+		53A9A25121A8A47A002095F3 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25021A8A47A002095F3 /* InfoViewController.swift */; };
+		53A9A25321A8C48C002095F3 /* BaseDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25221A8C48C002095F3 /* BaseDetailController.swift */; };
+		53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */; };
+		53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25621A8F341002095F3 /* SegmentedViewController.swift */; };
+		53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */; };
+		53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */; };
+		53A9A25D21A90C5E002095F3 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */; };
 		53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */; };
 		53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B720219E589E009F5DB3 /* AppDelegate.swift */; };
 		53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B722219E589E009F5DB3 /* SearchViewController.swift */; };
@@ -43,6 +56,19 @@
 		2250D311F29D64D3DF7CA7E0 /* Pods-EventTicketUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventTicketUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventTicketUITests/Pods-EventTicketUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		42889DB7FD3975CF645A2FA3 /* Pods-EventTicketUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventTicketUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventTicketUITests/Pods-EventTicketUITests.release.xcconfig"; sourceTree = "<group>"; };
 		53232B6A21A360D00089AA27 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		53232B6C21A36F740089AA27 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		53232B6E21A3966F0089AA27 /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
+		53A9A24821A773D5002095F3 /* LatLng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLng.swift; sourceTree = "<group>"; };
+		53A9A24A21A780FC002095F3 /* SuggestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionList.swift; sourceTree = "<group>"; };
+		53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrottleQueue.swift; sourceTree = "<group>"; };
+		53A9A24E21A8A2F1002095F3 /* DetailTBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTBController.swift; sourceTree = "<group>"; };
+		53A9A25021A8A47A002095F3 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		53A9A25221A8C48C002095F3 /* BaseDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDetailController.swift; sourceTree = "<group>"; };
+		53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		53A9A25621A8F341002095F3 /* SegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedViewController.swift; sourceTree = "<group>"; };
+		53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventsTableViewController.swift; sourceTree = "<group>"; };
+		53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEventsTableViewController.swift; sourceTree = "<group>"; };
+		53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		53E4B71D219E589E009F5DB3 /* EventTicket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventTicket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E4B720219E589E009F5DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,12 +156,25 @@
 			children = (
 				53E4B720219E589E009F5DB3 /* AppDelegate.swift */,
 				53E4B722219E589E009F5DB3 /* SearchViewController.swift */,
+				53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */,
 				53E4B724219E589E009F5DB3 /* Main.storyboard */,
+				53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */,
+				53A9A25621A8F341002095F3 /* SegmentedViewController.swift */,
+				53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */,
+				53A9A25021A8A47A002095F3 /* InfoViewController.swift */,
+				53A9A25221A8C48C002095F3 /* BaseDetailController.swift */,
+				53A9A24E21A8A2F1002095F3 /* DetailTBController.swift */,
+				53232B6C21A36F740089AA27 /* EventCell.swift */,
+				53A9A25C21A90C5E002095F3 /* FavoriteCell.swift */,
 				53E4B727219E58A1009F5DB3 /* Assets.xcassets */,
 				53E4B729219E58A1009F5DB3 /* LaunchScreen.storyboard */,
 				53E4B72C219E58A1009F5DB3 /* Info.plist */,
 				53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */,
 				53232B6A21A360D00089AA27 /* Event.swift */,
+				53232B6E21A3966F0089AA27 /* EventList.swift */,
+				53A9A24821A773D5002095F3 /* LatLng.swift */,
+				53A9A24A21A780FC002095F3 /* SuggestionList.swift */,
+				53A9A25A21A9093E002095F3 /* BaseEventsTableViewController.swift */,
 			);
 			path = EventTicket;
 			sourceTree = "<group>";
@@ -333,23 +372,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventTicket/Pods-EventTicket-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/EasyToast/EasyToast.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyToast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -407,10 +442,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A9A24F21A8A2F1002095F3 /* DetailTBController.swift in Sources */,
+				53A9A25121A8A47A002095F3 /* InfoViewController.swift in Sources */,
+				53A9A24921A773D5002095F3 /* LatLng.swift in Sources */,
+				53A9A24D21A8877F002095F3 /* ThrottleQueue.swift in Sources */,
+				53232B6F21A3966F0089AA27 /* EventList.swift in Sources */,
+				53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */,
 				53232B6B21A360D00089AA27 /* Event.swift in Sources */,
+				53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */,
+				53A9A24B21A780FC002095F3 /* SuggestionList.swift in Sources */,
+				53A9A25321A8C48C002095F3 /* BaseDetailController.swift in Sources */,
 				53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */,
+				53232B6D21A36F740089AA27 /* EventCell.swift in Sources */,
 				53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */,
+				53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */,
 				53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */,
+				53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */,
+				53A9A25D21A90C5E002095F3 /* FavoriteCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
