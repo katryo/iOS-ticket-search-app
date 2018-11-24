@@ -13,10 +13,15 @@ class FavoriteEventsTableViewController: BaseEventsTableViewController {
     @IBOutlet var noFavoritesView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateEvents()
+        self.tableView.reloadData()
+    }
+    
+    func updateEvents() {
         let nvc = navigationController as! RootNavigationController
         self.events = nvc.favoriteEventList!.events
         if self.events.count == 0 {
@@ -26,7 +31,6 @@ class FavoriteEventsTableViewController: BaseEventsTableViewController {
             tableView.backgroundView = nil
             tableView.separatorStyle = .singleLine
         }
-        self.tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,4 +43,17 @@ class FavoriteEventsTableViewController: BaseEventsTableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let event = events[indexPath.row]
+            let nc = navigationController as! RootNavigationController
+            nc.removeFavorite(event: event)
+            updateEvents()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }

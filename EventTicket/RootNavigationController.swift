@@ -27,4 +27,41 @@ class RootNavigationController: UINavigationController {
             }
         }
     }
+    
+    func removeFavorite(event: Event) {
+        for (i, favoriteEvent) in favoriteEventList!.events.enumerated() {
+            if favoriteEvent === event {
+                favoriteEventList!.events.remove(at: i)
+            }
+        }
+        
+        let data = try? JSONEncoder().encode(favoriteEventList)
+        UserDefaults.standard.set(data, forKey:"favoriteEvents")
+    }
+    
+    func addFavorites(event: Event) {
+        favoriteEventList!.events.append(event)
+        
+        let data = try? JSONEncoder().encode(favoriteEventList)
+        UserDefaults.standard.set(data, forKey:"favoriteEvents")
+    }
+    
+    
+    func updateFavorites(event: Event) {
+        var found = false
+        for (i, favoriteEvent) in favoriteEventList!.events.enumerated() {
+            if favoriteEvent === event {
+                favoriteEventList!.events.remove(at: i)
+                found = true
+                break
+            }
+        }
+        
+        if !found {
+            favoriteEventList!.events.append(event)
+        }
+        
+        let data = try? JSONEncoder().encode(favoriteEventList)
+        UserDefaults.standard.set(data, forKey:"favoriteEvents")
+    }
 }

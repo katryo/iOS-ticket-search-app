@@ -17,7 +17,22 @@ class EventsTableViewController: BaseEventsTableViewController {
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.events.count == 0 {
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if events.count == 0 {
+            tableView.backgroundView = noResultsLabel
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if events.count == 0 {
             tableView.backgroundView = noResultsLabel
             tableView.separatorStyle = .none
         } else {
