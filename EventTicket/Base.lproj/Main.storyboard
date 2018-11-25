@@ -444,14 +444,20 @@
                                     <segment title="Artist"/>
                                     <segment title="Type"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sortByChanged:" destination="pcm-1W-Dkp" eventType="valueChanged" id="gy7-Dh-P3O"/>
+                                </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-BW-ffP">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-BW-ffP">
                                 <rect key="frame" x="20" y="238" width="374" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Ascending"/>
                                     <segment title="Descending"/>
                                 </segments>
+                                <connections>
+                                    <action selector="orderChanged:" destination="pcm-1W-Dkp" eventType="valueChanged" id="JI3-8c-Jsd"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sOk-52-xCm">
                                 <rect key="frame" x="0.0" y="346" width="414" height="467"/>
@@ -523,6 +529,7 @@
                     <connections>
                         <outlet property="eventsTableView" destination="sOk-52-xCm" id="i2G-wb-3KB"/>
                         <outlet property="noUpcomingLabel" destination="EdI-Xd-cqu" id="LQ3-59-wAl"/>
+                        <outlet property="orderByControl" destination="aSi-BW-ffP" id="6Iz-RF-Au7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKD-uo-RFz" userLabel="First Responder" sceneMemberID="firstResponder"/>

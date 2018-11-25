@@ -14,4 +14,5 @@ class UpcomingEvent: Codable {
     let artistName: String
     let type: String
     let time: String
+    let unixtime: Int
 }

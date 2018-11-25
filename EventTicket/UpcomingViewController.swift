@@ -9,14 +9,15 @@
 import UIKit
 import SwiftSpinner
 
-protocol UpcomingEventCellProtocol {
-    func upcomingEventNameClicked(sender: UIButton)
-}
 
 class UpcomingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var upcomingEvents: [UpcomingEvent]?
+    let sortItems = ["default", "name", "time", "artist", "type"]
+    var sortBy = 0
+    var orderBy = 0
 
+    @IBOutlet weak var orderByControl: UISegmentedControl!
     @IBOutlet var noUpcomingLabel: UILabel!
     @IBOutlet weak var eventsTableView: UITableView!
     override func viewDidLoad() {
@@ -35,6 +36,21 @@ class UpcomingViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view.
     }
    
+    @IBAction func sortByChanged(_ sender: UISegmentedControl) {
+        if sortBy == 0 && sender.selectedSegmentIndex != 0 {
+            orderByControl.isEnabled = true
+        } else if sortBy != 0 && sender.selectedSegmentIndex == 0 {
+            orderByControl.isEnabled = false
+        }
+        sortBy = sender.selectedSegmentIndex
+        eventsTableView.reloadData()
+    }
+    
+    @IBAction func orderChanged(_ sender: UISegmentedControl) {
+        orderBy = sender.selectedSegmentIndex
+        eventsTableView.reloadData()
+    }
+    
     private func fetchEventNot200(response: HTTPURLResponse) {
         self.updateEventsOrNot()
         let tbc = self.tabBarController as! DetailTBController
@@ -97,12 +113,44 @@ class UpcomingViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-//    func upcomingEventNameClicked(sender: UIButton) {
-//        <#code#>
-//    }
-//
+    private func sortedEvents() -> [UpcomingEvent] {
+        let events = upcomingEvents!
+        switch sortBy {
+        case 0:
+            return events
+        case 1:
+            if orderBy == 1 {
+                return events.sorted(by: { $0.name > $1.name })
+            } else {
+                return events.sorted(by: { $0.name < $1.name })
+            }
+        case 2:
+            if orderBy == 1 {
+                return events.sorted(by: { $0.unixtime > $1.unixtime })
+            } else {
+                return events.sorted(by: { $0.unixtime < $1.unixtime })
+            }
+        case 3:
+            if orderBy == 1 {
+                return events.sorted(by: { $0.artistName > $1.artistName })
+            } else {
+                return events.sorted(by: { $0.artistName < $1.artistName })
+            }
+        case 4:
+            if orderBy == 1 {
+                return events.sorted(by: { $0.type > $1.type })
+            } else {
+                return events.sorted(by: { $0.type < $1.type })
+            }
+        default:
+            print("Unexpected sort/order.")
+            return events
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let upcomingEvent = upcomingEvents![indexPath.row]
+        let upcomingEvent = sortedEvents()[indexPath.row]
         let cell = eventsTableView.dequeueReusableCell(withIdentifier: "UpcomingCell", for: indexPath) as! UpcomingCell
         
         cell.nameButton.setTitle(upcomingEvent.name, for: .normal)
