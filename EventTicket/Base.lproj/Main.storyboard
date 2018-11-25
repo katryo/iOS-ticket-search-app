@@ -576,19 +576,62 @@
         <!--Venue-->
         <scene sceneID="2N7-4u-xDS">
             <objects>
-                <viewController id="dmC-LP-rEm" sceneMemberID="viewController">
+                <viewController id="dmC-LP-rEm" customClass="VenueViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6OQ-TS-Lox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIo-GR-mPc">
+                                <rect key="frame" x="20" y="110" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPENHOURSOPENHOURS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0BY-y2-Hdi">
+                                <rect key="frame" x="20" y="139" width="374" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Rules" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ia6-Vx-YFF">
+                                <rect key="frame" x="20" y="182.33333333333334" width="216" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GENERALRULESGENS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cs-iK-N4A">
+                                <rect key="frame" x="20" y="212" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2cs-iK-N4A" firstAttribute="top" secondItem="Ia6-Vx-YFF" secondAttribute="bottom" constant="8" symbolic="YES" id="AOp-MD-fHy"/>
+                            <constraint firstItem="Ia6-Vx-YFF" firstAttribute="top" secondItem="0BY-y2-Hdi" secondAttribute="bottom" constant="23" id="Bd4-iV-2XS"/>
+                            <constraint firstItem="0BY-y2-Hdi" firstAttribute="trailing" secondItem="6OQ-TS-Lox" secondAttribute="trailingMargin" id="In6-cb-ROQ"/>
+                            <constraint firstItem="wIo-GR-mPc" firstAttribute="trailing" secondItem="Ia6-Vx-YFF" secondAttribute="trailing" id="KGr-ct-ix3"/>
+                            <constraint firstItem="XCQ-gd-Rq1" firstAttribute="trailing" secondItem="wIo-GR-mPc" secondAttribute="trailing" constant="178" id="Krd-r1-m3I"/>
+                            <constraint firstItem="0BY-y2-Hdi" firstAttribute="top" secondItem="wIo-GR-mPc" secondAttribute="bottom" constant="8" symbolic="YES" id="TAN-8J-Ywe"/>
+                            <constraint firstItem="wIo-GR-mPc" firstAttribute="leading" secondItem="6OQ-TS-Lox" secondAttribute="leadingMargin" id="cTX-Ib-9GP"/>
+                            <constraint firstItem="wIo-GR-mPc" firstAttribute="top" secondItem="XCQ-gd-Rq1" secondAttribute="top" constant="66" id="fMJ-yH-Ir8"/>
+                            <constraint firstItem="0BY-y2-Hdi" firstAttribute="leading" secondItem="Ia6-Vx-YFF" secondAttribute="leading" id="gGZ-Dx-A4k"/>
+                            <constraint firstItem="Ia6-Vx-YFF" firstAttribute="leading" secondItem="2cs-iK-N4A" secondAttribute="leading" id="r6f-Ir-ggB"/>
+                            <constraint firstItem="Ia6-Vx-YFF" firstAttribute="trailing" secondItem="2cs-iK-N4A" secondAttribute="trailing" id="w5R-Ca-5Bz"/>
+                            <constraint firstItem="wIo-GR-mPc" firstAttribute="leading" secondItem="0BY-y2-Hdi" secondAttribute="leading" id="zHg-wl-i3D"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="XCQ-gd-Rq1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Venue" image="location" id="UHu-ck-wkB"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="openHourLabel" destination="0BY-y2-Hdi" id="h6b-Jj-5ve"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sk2-hp-6mb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2607" y="-679"/>
+            <point key="canvasLocation" x="2605.7971014492755" y="-679.01785714285711"/>
         </scene>
         <!--DetailTB Controller-->
         <scene sceneID="ZC3-6N-PWk">
