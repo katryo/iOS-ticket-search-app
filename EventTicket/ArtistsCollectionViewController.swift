@@ -289,7 +289,7 @@ class ArtistsCollectionViewController: UICollectionViewController {
             },
                 failed: {
                     DispatchQueue.main.async {
-                        self.view.showToast("Could not find info of \(artistName)", position: .bottom, popTime: 4, dismissOnTap: false)
+                        self.view.showToast("Could not find artist info of \(artistName)", position: .bottom, popTime: 4, dismissOnTap: false)
                     }
                     
                     if partlyFinished {

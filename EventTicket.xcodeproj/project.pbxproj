@@ -28,6 +28,10 @@
 		53AE943C21AA6BF5002F3933 /* VenueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE943B21AA6BF5002F3933 /* VenueViewController.swift */; };
 		53AE943E21AA760D002F3933 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE943D21AA760D002F3933 /* Venue.swift */; };
 		53AE944021AA79F6002F3933 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE943F21AA79F6002F3933 /* WebClient.swift */; };
+		53AE944221AB3A43002F3933 /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE944121AB3A43002F3933 /* UpcomingViewController.swift */; };
+		53AE944421AB3B8A002F3933 /* UpcomingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE944321AB3B8A002F3933 /* UpcomingCell.swift */; };
+		53AE944621AB47C9002F3933 /* UpcomingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE944521AB47C9002F3933 /* UpcomingEvent.swift */; };
+		53AE944821AB481B002F3933 /* UpcomingEventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AE944721AB481B002F3933 /* UpcomingEventList.swift */; };
 		53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */; };
 		53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B720219E589E009F5DB3 /* AppDelegate.swift */; };
 		53E4B723219E589E009F5DB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E4B722219E589E009F5DB3 /* SearchViewController.swift */; };
@@ -83,6 +87,10 @@
 		53AE943B21AA6BF5002F3933 /* VenueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewController.swift; sourceTree = "<group>"; };
 		53AE943D21AA760D002F3933 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		53AE943F21AA79F6002F3933 /* WebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
+		53AE944121AB3A43002F3933 /* UpcomingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingViewController.swift; sourceTree = "<group>"; };
+		53AE944321AB3B8A002F3933 /* UpcomingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCell.swift; sourceTree = "<group>"; };
+		53AE944521AB47C9002F3933 /* UpcomingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEvent.swift; sourceTree = "<group>"; };
+		53AE944721AB481B002F3933 /* UpcomingEventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventList.swift; sourceTree = "<group>"; };
 		53E079F0219FD23D005A9B85 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		53E4B71D219E589E009F5DB3 /* EventTicket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventTicket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53E4B720219E589E009F5DB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +177,10 @@
 			isa = PBXGroup;
 			children = (
 				53E4B724219E589E009F5DB3 /* Main.storyboard */,
+				53AE944121AB3A43002F3933 /* UpcomingViewController.swift */,
+				53AE944521AB47C9002F3933 /* UpcomingEvent.swift */,
+				53AE944721AB481B002F3933 /* UpcomingEventList.swift */,
+				53AE944321AB3B8A002F3933 /* UpcomingCell.swift */,
 				53AE943B21AA6BF5002F3933 /* VenueViewController.swift */,
 				5398C40621A9DA4800C9AA28 /* ArtistsCollectionViewController.swift */,
 				53AE943F21AA79F6002F3933 /* WebClient.swift */,
@@ -494,11 +506,13 @@
 				53A9A25121A8A47A002095F3 /* InfoViewController.swift in Sources */,
 				53ADB7D521AA1EF7007CBEF7 /* ArtistCollectionViewCell.swift in Sources */,
 				53A9A24921A773D5002095F3 /* LatLng.swift in Sources */,
+				53AE944621AB47C9002F3933 /* UpcomingEvent.swift in Sources */,
 				53A9A24D21A8877F002095F3 /* ThrottleQueue.swift in Sources */,
 				53232B6F21A3966F0089AA27 /* EventList.swift in Sources */,
 				53A9A25721A8F341002095F3 /* SegmentedViewController.swift in Sources */,
 				53232B6B21A360D00089AA27 /* Event.swift in Sources */,
 				53A9A25521A8D8B6002095F3 /* RootNavigationController.swift in Sources */,
+				53AE944421AB3B8A002F3933 /* UpcomingCell.swift in Sources */,
 				53A9A24B21A780FC002095F3 /* SuggestionList.swift in Sources */,
 				53ADB7D721AA3D56007CBEF7 /* UrlList.swift in Sources */,
 				53A9A25321A8C48C002095F3 /* BaseDetailController.swift in Sources */,
@@ -506,11 +520,13 @@
 				53AE943E21AA760D002F3933 /* Venue.swift in Sources */,
 				53232B6D21A36F740089AA27 /* EventCell.swift in Sources */,
 				5316E75921A9F23D00EE07CF /* Artist.swift in Sources */,
+				53AE944221AB3A43002F3933 /* UpcomingViewController.swift in Sources */,
 				53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */,
 				53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */,
 				53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */,
 				53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */,
 				53A9A25D21A90C5E002095F3 /* FavoriteCell.swift in Sources */,
+				53AE944821AB481B002F3933 /* UpcomingEventList.swift in Sources */,
 				53AE944021AA79F6002F3933 /* WebClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
