@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/EasyToast" "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher" "${PODS_CONFIGURATION_BUILD_DIR}/McPicker" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSpinner"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/EasyToast" "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher" "${PODS_CONFIGURATION_BUILD_DIR}/McPicker" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSpinner" "${PODS_ROOT}/GoogleMaps/Base/Frameworks" "${PODS_ROOT}/GoogleMaps/Maps/Frameworks" "${PODS_ROOT}/GooglePlaces/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/EasyToast/EasyToast.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/McPicker/McPicker.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SwiftSpinner/SwiftSpinner.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "EasyToast" -framework "Kingfisher" -framework "McPicker" -framework "SwiftSpinner"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"z" -framework "Accelerate" -framework "CoreData" -framework "CoreGraphics" -framework "CoreImage" -framework "CoreLocation" -framework "CoreTelephony" -framework "CoreText" -framework "EasyToast" -framework "GLKit" -framework "GoogleMaps" -framework "GoogleMapsBase" -framework "GoogleMapsCore" -framework "GooglePlaces" -framework "ImageIO" -framework "Kingfisher" -framework "McPicker" -framework "OpenGLES" -framework "QuartzCore" -framework "SwiftSpinner" -framework "SystemConfiguration" -framework "UIKit"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

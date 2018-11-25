@@ -28,6 +28,13 @@ class DetailTBController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         updateButtons()
         self.delegate = self
+        
+        
+        let venueVC = viewControllers?[2] as! VenueViewController
+        WebClient.fetch(urlString: "https://ios-event-ticket-usc.appspot.com/api/venue",
+                        queryName: "id",
+                        queryValue: event!.id,
+                        success: venueVC.decodeVenue)
     }
     
 //    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

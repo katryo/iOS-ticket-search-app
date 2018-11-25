@@ -16,4 +16,6 @@ class Venue: Codable {
     let openHours: String
     let generalRule: String
     let childRule: String
+    let longitude: Double
+    let latitude: Double
 }

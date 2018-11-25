@@ -1,11 +1,20 @@
 PODS:
   - EasyToast (2.0.2)
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - Kingfisher (4.10.1)
   - McPicker (2.0.0)
   - SwiftSpinner (1.6.2)
 
 DEPENDENCIES:
   - EasyToast
+  - GoogleMaps
+  - GooglePlaces
   - Kingfisher
   - McPicker
   - SwiftSpinner
@@ -13,16 +22,20 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - EasyToast
+    - GoogleMaps
+    - GooglePlaces
     - Kingfisher
     - McPicker
     - SwiftSpinner
 
 SPEC CHECKSUMS:
   EasyToast: 2844de2158fe8d2313c6de81b5a858a909d82532
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   McPicker: 1d11ad8c07c337a16dd9397e45f321125304cbb0
   SwiftSpinner: 3a4c6dea425e5a31b908a8b1dd5dcd1ad4d96340
 
-PODFILE CHECKSUM: d44ccf13ffd26d20d0007a3e683c4bbc7b43b748
+PODFILE CHECKSUM: a8ccb80d812bcb73b77b0207b9cfca5fa499ea57
 
 COCOAPODS: 1.5.3
