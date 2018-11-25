@@ -16,6 +16,7 @@ class ArtistsCollectionViewController: UICollectionViewController {
     var artists = [String: Artist]()
     var imageURLs = [String: [URL]]()
     let margin = CGFloat(integerLiteral: 50)
+    var heights = [String: Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,9 @@ class ArtistsCollectionViewController: UICollectionViewController {
                     } else {
                         self.imageURLs[artistName] = urls
                     }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 } catch {
                     print("Failed to decode the JSON", error)
                     // TODO: Error handling
@@ -106,7 +110,6 @@ class ArtistsCollectionViewController: UICollectionViewController {
         
         let url = components.url!
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            print(url)
             if error != nil {
                 // TODO: Error handling
                 print("Error: \(error!.localizedDescription) \n")
@@ -204,14 +207,24 @@ class ArtistsCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ArtistCollectionViewCell
+        
+        for subview in cell.subviews {
+            subview.removeFromSuperview()
+        }
     
         let tbc = self.tabBarController as! DetailTBController
 
         let artistName = tbc.event.artistNames[indexPath.row]
         
-        cell.label.text = artistName
+        var y = 0
         
-        var y = 50
+        let titleTV: UITextView = UITextView(frame: CGRect(x: 0, y: 0, width: 414, height: 60))
+        titleTV.text = artistName
+        titleTV.font = UIFont.boldSystemFont(ofSize: 20)
+        titleTV.textAlignment = .center
+        cell.addSubview(titleTV)
+        
+        y += 50
         let nameHeight = 40
         let labelHeight = 25
         if let artist = self.artists[artistName] {
@@ -274,6 +287,7 @@ class ArtistsCollectionViewController: UICollectionViewController {
             }
         }
         
+        self.heights[artistName] = y
         return cell
     }
     
@@ -318,18 +332,25 @@ class ArtistsCollectionViewController: UICollectionViewController {
 
 extension ArtistsCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 414, height: 1000)
+        let tbc = self.tabBarController as! DetailTBController
+        
+        let artistName = tbc.event.artistNames[indexPath.row]
+        if let height = heights[artistName] {
+            return CGSize(width: 414, height: height + 300)
+        } else {
+            return CGSize(width: 414, height: 1000)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return margin
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return margin
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return margin
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return margin
+//    }
 }

@@ -9,6 +9,4 @@
 import UIKit
 
 class ArtistCollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var label: UILabel!
-}
+    }
