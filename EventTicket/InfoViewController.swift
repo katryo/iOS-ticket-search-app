@@ -32,7 +32,7 @@ class InfoViewController: BaseDetailController {
         print("yey")
         
         if tbController.event.artistNames.count > 0 {
-            artistsLabel.text = tbController.event.artistNames.joined(separator: "|")
+            artistsLabel.text = tbController.event.artistNames.joined(separator: " | ")
         } else {
             artistsLabel.text = "N/A"
         }

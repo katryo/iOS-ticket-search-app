@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTBController: UITabBarController {
+class DetailTBController: UITabBarController, UITabBarControllerDelegate {
     var event: Event!
     
     func updateButtons() {
@@ -27,7 +27,14 @@ class DetailTBController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButtons()
+        self.delegate = self
     }
+    
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        if viewController === viewControllers![1] {
+//            print("artist")
+//        }
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

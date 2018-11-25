@@ -25,9 +25,4 @@ class Event: Codable {
     let genre: String
     let subGenre: String
     let categoryString: String
-    
-//    init(name: String, address: String) {
-//        self.name = name
-//       // self.address = address
-//    }
 }

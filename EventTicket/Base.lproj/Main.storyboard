@@ -377,21 +377,53 @@
             </objects>
             <point key="canvasLocation" x="463.768115942029" y="-358.25892857142856"/>
         </scene>
-        <!--Artist(s)-->
-        <scene sceneID="8fU-RH-1xX">
+        <!--Item-->
+        <scene sceneID="IUL-Ul-Rgg">
             <objects>
-                <viewController id="kQm-ZV-8uf" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pcV-g9-wMk">
+                <collectionViewController id="cez-Hu-9QN" customClass="ArtistsCollectionViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="SBw-IS-JOA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="2hG-p8-jWE"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Artist(s)" image="contacts" id="MXG-uI-KHt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yYu-pQ-Byu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ekF-qw-2th">
+                            <size key="itemSize" width="414" height="426"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistDetailCell" id="KOl-vG-wPs" customClass="ArtistCollectionViewCell" customModule="EventTicket" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="426"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="426"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3iG-hq-0GP">
+                                            <rect key="frame" x="89" y="20" width="236" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="label" destination="3iG-hq-0GP" id="uWa-jh-hjg"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="cez-Hu-9QN" id="fmb-uS-feq"/>
+                            <outlet property="delegate" destination="cez-Hu-9QN" id="G6e-Qx-Fsi"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Item" image="contacts" selectedImage="contacts" id="Kph-jo-MUd"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e7b-3y-fyY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901" y="-125"/>
+            <point key="canvasLocation" x="1853.6231884057972" y="-42.1875"/>
         </scene>
         <!--Upcoming-->
         <scene sceneID="lFX-qz-jXj">
@@ -582,7 +614,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="qdO-GO-F2O" kind="relationship" relationship="viewControllers" id="c8T-jV-gHq"/>
-                        <segue destination="kQm-ZV-8uf" kind="relationship" relationship="viewControllers" id="fjJ-ny-Qlq"/>
+                        <segue destination="cez-Hu-9QN" kind="relationship" relationship="viewControllers" id="wJK-qh-Yh7"/>
                         <segue destination="dmC-LP-rEm" kind="relationship" relationship="viewControllers" id="7pa-Dv-r5c"/>
                         <segue destination="pcm-1W-Dkp" kind="relationship" relationship="viewControllers" id="pik-aa-8oP"/>
                     </connections>
