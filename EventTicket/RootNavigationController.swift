@@ -30,7 +30,7 @@ class RootNavigationController: UINavigationController {
     
     func hasFavorited(event: Event) -> Bool {
         for favorited in favoriteEventList!.events {
-            if favorited === event {
+            if favorited.id == event.id {
                 return true
             }
         }
