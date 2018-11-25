@@ -8,24 +8,29 @@
 
 import UIKit
 import SwiftSpinner
+import Kingfisher
 
 private let reuseIdentifier = "ArtistDetailCell"
 
 class ArtistsCollectionViewController: UICollectionViewController {
     var artists = [String: Artist]()
+    var imageURLs = [String: [URL]]()
+    let margin = CGFloat(integerLiteral: 50)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("artistDidLoad")
         let tbc = self.tabBarController as! DetailTBController
         
-        print(tbc.event.segment)
         if tbc.event.segment == "Music" {
             if tbc.event.artistNames.count < 2 {
                 fetchArtists(artistNames: tbc.event.artistNames)
             } else {
                 fetchArtists(artistNames: Array(tbc.event.artistNames[0..<2]))
             }
+        }
+        
+        for artistName in tbc.event.artistNames {
+            fetchImageURLs(artistName: artistName)
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -37,15 +42,58 @@ class ArtistsCollectionViewController: UICollectionViewController {
 //        self.collectionView!.delegate = self
         
         
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 414,height: 1200 * min( tbc.event.artistNames.count, 2))
-        }
+
 
         // Do any additional setup after loading the view.
     }
     
-    private func finishLoading() {
+//    private func updateEstimatedItemSize() {
+//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            flowLayout.estimatedItemSize = CGSize(width: 414, height: 1200 * min( tbc.event.artistNames.count, 2))
+//        }
+//    }
+    
+    private func fetchImageURLs(artistName: String) {
+        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/images")!
+        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
         
+        components.queryItems = [URLQueryItem(name: "query", value: artistName)]
+        let url = components.url!
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil {
+                // TODO: Error handling
+                print("Error: \(error!.localizedDescription) \n")
+                return
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("No data or no response")
+                // TODO: Error handling
+                return
+            }
+            
+            if response.statusCode == 200 {
+                let decoder = JSONDecoder()
+                let urlList: UrlList
+                do {
+                    urlList = try decoder.decode(UrlList.self, from: data)
+                    let urls: [URL] = urlList.urls.filter { URLComponents(url: $0, resolvingAgainstBaseURL: false)!.scheme == "https" }
+                    if urls.count > 8 {
+                        self.imageURLs[artistName] = Array(urls[0..<8])
+                    } else {
+                        self.imageURLs[artistName] = urls
+                    }
+                } catch {
+                    print("Failed to decode the JSON", error)
+                    // TODO: Error handling
+                    return
+                }
+            } else {
+                // TODO: Error handling
+                print("Status code: \(response.statusCode)\n")
+            }
+        }
+        task.resume()
     }
     
     private func fetchArtist
@@ -101,7 +149,6 @@ class ArtistsCollectionViewController: UICollectionViewController {
             partlyFinished = true
         }
 
-        print("fetchArtists")
         for artistName in artistNames {
             self.fetchArtist(artistName: artistName, finished: {
                 if partlyFinished {
@@ -130,15 +177,15 @@ class ArtistsCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        let tbc = self.tabBarController as! DetailTBController
-        
-        return min(tbc.event.artistNames.count, 2)
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 1
+        let tbc = self.tabBarController as! DetailTBController
+        
+        return min(tbc.event.artistNames.count, 2)
     }
     
     private func generateUITextView(y: Int, height: Int, text: String) -> UITextView {
@@ -146,6 +193,13 @@ class ArtistsCollectionViewController: UICollectionViewController {
         tv.text = text
         tv.font = UIFont.systemFont(ofSize: 16)
         return tv
+    }
+    
+    private func generateImageView(url: URL) -> UIImageView {
+        let imageView = UIImageView()
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: url)
+        return imageView
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -157,9 +211,9 @@ class ArtistsCollectionViewController: UICollectionViewController {
         
         cell.label.text = artistName
         
-        var y = 100
-        let nameHeight = 60
-        let labelHeight = 30
+        var y = 50
+        let nameHeight = 40
+        let labelHeight = 25
         if let artist = self.artists[artistName] {
             if artist.name != "N/A" {
                 let nameLabelTV = generateUITextView(y: y, height: labelHeight, text: "Name")
@@ -206,9 +260,19 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 y += nameHeight
                 cell.addSubview(urlButton)
             }
-            
         }
         
+        let imageHeight = 300
+        let imageMargin = 20
+        if let imageURLs = imageURLs[artistName] {
+            for imageURL in imageURLs {
+                let imageView = generateImageView(url: imageURL)
+                imageView.frame = CGRect(x: 12, y:y, width: 414-12*2, height: imageHeight)
+                imageView.contentMode = UIView.ContentMode.scaleAspectFit
+                cell.addSubview(imageView)
+                y += imageHeight + imageMargin
+            }
+        }
         
         return cell
     }
@@ -249,4 +313,23 @@ class ArtistsCollectionViewController: UICollectionViewController {
     }
     */
 
+}
+
+
+extension ArtistsCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 414, height: 1000)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return margin
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return margin
+    }
 }
