@@ -15,6 +15,12 @@ protocol EventCellProtocol {
 }
 
 class EventsTableViewController: BaseEventsTableViewController, EventCellProtocol {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "Search Results"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+    }
     func toggleFavoriteButton(sender: UIButton) {
         let index: Int = sender.tag
         let event = events[index]
@@ -47,9 +53,7 @@ class EventsTableViewController: BaseEventsTableViewController, EventCellProtoco
     @IBOutlet var noResultsLabel: UILabel!
     //    var events: [Event] = []
 //
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

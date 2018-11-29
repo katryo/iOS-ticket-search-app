@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-1714" y="-366"/>
         </scene>
-        <!--Segmented View Controller-->
+        <!--Places Search-->
         <scene sceneID="ZGS-ZA-OMj">
             <objects>
-                <viewController id="jWh-Fx-k9l" customClass="SegmentedViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Places Search" id="jWh-Fx-k9l" customClass="SegmentedViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zrJ-ts-gqn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6g1-XQ-nhL"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Bik-IQ-tt9"/>
+                    <navigationItem key="navigationItem" id="Bik-IQ-tt9">
+                        <barButtonItem key="backBarButtonItem" title=" " id="swb-D0-AIk"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="viewContainer" destination="kLL-CS-WHM" id="5S1-5T-GP7"/>
                     </connections>
@@ -141,10 +143,10 @@
             </objects>
             <point key="canvasLocation" x="-561" y="1155"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Places Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="SearchView" id="BYZ-38-t0r" customClass="SearchViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchView" title="Places Search" id="BYZ-38-t0r" customClass="SearchViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -281,7 +283,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="IiS-4R-Csg"/>
+                    <navigationItem key="navigationItem" id="IiS-4R-Csg">
+                        <barButtonItem key="backBarButtonItem" title=" " id="vpE-Ej-36w"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="categoryField" destination="Z3Q-tp-agu" id="1Lo-Ow-sF9"/>
                         <outlet property="currentLocationButton" destination="bxk-44-GQp" id="FyN-hc-vJz"/>

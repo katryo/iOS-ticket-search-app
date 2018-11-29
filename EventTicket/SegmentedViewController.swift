@@ -19,6 +19,7 @@ class SegmentedViewController: UIViewController {
     //var views: [UIView]!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Search Places"
         currentVC = searchVC
         showCurrentView(0)
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -29,6 +29,8 @@ class DetailTBController: UITabBarController, UITabBarControllerDelegate {
         updateButtons()
         self.delegate = self
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
         
         let venueVC = viewControllers?[2] as! VenueViewController
         WebClient.fetch(urlString: "https://ios-event-ticket-usc.appspot.com/api/venue",
