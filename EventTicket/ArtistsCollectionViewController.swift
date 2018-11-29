@@ -25,7 +25,13 @@ class ArtistsCollectionViewController: UICollectionViewController {
         let nameHeight = 40
         let labelHeight = 25
         let tbc = tabBarController as! DetailTBController
-        for artistName in tbc.event!.artistNames {
+        let artistNames: [String]
+        if tbc.event.artistNames.count < 2 {
+            artistNames = tbc.event.artistNames
+        } else {
+            artistNames = Array(tbc.event.artistNames[0..<2])
+        }
+        for artistName in artistNames {
             if let artist = self.artists[artistName] {
                 if artist.name != "N/A" {
                     y += labelHeight
@@ -34,7 +40,6 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 if artist.followers != "N/A" {
                 
                 y += labelHeight
-                
                 y += nameHeight
             }
             if artist.popularity != -1 {
@@ -58,8 +63,13 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 }
             }
             self.heights[artistName] = y
+            print(y)
             print("height here", artistName)
+            print(self.collectionViewLayout.collectionViewContentSize.height)
         }
+//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//            flowLayout.estimatedItemSize = CGSize(width: 414, height: y)
+//        }
     }
     
     private func finishFetching() {
@@ -119,9 +129,6 @@ class ArtistsCollectionViewController: UICollectionViewController {
 //        self.collectionView!.delegate = self
         
         
-
-
-        // Do any additional setup after loading the view.
     }
     
 //    private func updateEstimatedItemSize() {
@@ -140,6 +147,20 @@ class ArtistsCollectionViewController: UICollectionViewController {
             WebClient.fetch(urlString: "https://ios-event-ticket-usc.appspot.com/api/images",
                         queryName: "query",
                         queryValue: artistName,
+                        not200: {_ in
+                            if partlyFinished {
+                                finally()
+                            } else {
+                                partlyFinished = true
+                            }
+                        },
+                        failure: {_ in
+                            if partlyFinished {
+                                finally()
+                            } else {
+                                partlyFinished = true
+                            }
+                        },
                         success: {data in
                             let decoder = JSONDecoder()
                             let urlList: UrlList
@@ -168,33 +189,6 @@ class ArtistsCollectionViewController: UICollectionViewController {
                             }
             })
         }
-
-//        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/images")!
-//        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
-//
-//        components.queryItems = [URLQueryItem(name: "query", value: artistName)]
-//        let url = components.url!
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            if error != nil {
-//                // TODO: Error handling
-//                print("Error: \(error!.localizedDescription) \n")
-//                return
-//            }
-//
-//            guard let data = data, let response = response as? HTTPURLResponse else {
-//                print("No data or no response")
-//                // TODO: Error handling
-//                return
-//            }
-//
-//            if response.statusCode == 200 {
-//
-//            } else {
-//                // TODO: Error handling
-//                print("Status code: \(response.statusCode)\n")
-//            }
-//        }
-//        task.resume()
     }
     
     private func fetchArtist
@@ -228,49 +222,7 @@ class ArtistsCollectionViewController: UICollectionViewController {
                             }
                         })
         }
-//        let baseUrl = URL(string: "https://ios-event-ticket-usc.appspot.com/api/artist")!
-//        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
-//
-//        components.queryItems = [URLQueryItem(name: "query", value: artistName)]
-//
-//
-//        let url = components.url!
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            if error != nil {
-//                // TODO: Error handling
-//                print("Error: \(error!.localizedDescription) \n")
-//                finished()
-//                return
-//            }
-//
-//            guard let data = data, let response = response as? HTTPURLResponse else {
-//                print("No data or no response")
-//                // TODO: Error handling
-//                finished()
-//                return
-//            }
-//
-//            if response.statusCode == 200 {
-//                let decoder = JSONDecoder()
-//                let artist: Artist
-//                do {
-//                    artist = try decoder.decode(Artist.self, from: data)
-//                    self.artists[artistName] = artist
-//                    finished()
-//                } catch {
-//                    print("Failed to decode the JSON", error)
-//                    // TODO: Error handling
-//                    return
-//                }
-//            } else {
-//                // TODO: Error handling
-//                print("Status code: \(response.statusCode)\n")
-//                finished()
-//            }
-//        }
-//        task.resume()
     
-    // TODO: Fetching artist info for sports
     private func fetchArtists(artistNames: [String], finally: @escaping ()->Void) {
         var partlyFinished = false
         if artistNames.count == 1 {
@@ -420,7 +372,8 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 y += imageHeight + imageMargin
             }
         }
-        
+        print(self.collectionViewLayout.collectionViewContentSize.height)
+
         //self.heights[artistName] = y
         return cell
     }
