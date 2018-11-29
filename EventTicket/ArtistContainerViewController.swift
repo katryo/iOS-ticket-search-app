@@ -12,8 +12,9 @@ import SwiftSpinner
 private let reuseIdentifier = "InnerArtistCell"
 
 
-class ArtistContainerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ArtistContainerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
 
+    @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     var artists = [String: Artist]()
     var imageURLs = [String: [URL]]()
@@ -26,7 +27,6 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
 
     
     private func calculateHeights() {
-        var y = 50
         let nameHeight = 40
         let labelHeight = 25
         let tbc = tabBarController as! DetailTBController
@@ -37,8 +37,12 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
             artistNames = Array(tbc.event.artistNames[0..<2])
         }
         for artistName in artistNames {
+            var y = 0
             if let artist = self.artists[artistName] {
-                if artist.name != "N/A" {
+                if artistNames[0] != artistName {
+                    y += 50
+                }
+                if artist.name != "N/A" && artistNames[0] != artistName  {
                     y += labelHeight
                     y += nameHeight
                 }
@@ -67,10 +71,9 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
                     y += imageHeight + imageMargin
                 }
             }
+            y += 400
             self.heights[artistName] = y
-            print(y)
-            print("height here", artistName)
-            print(self.artistsVC!.collectionViewLayout.collectionViewContentSize.height)
+
         }
     }
     
@@ -107,9 +110,27 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
             self.addChild(vc)
             vc.didMove(toParent: self)
             
-            //            vc.view.frame = self.contentView.bounds
             self.containerView.addSubview(vc.view)
             //self.currentVC!.viewWillAppear(false)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let tbc = self.tabBarController as! DetailTBController
+        if tbc.event.artistNames.count > 1 {
+            if let height = self.heights[tbc.event.artistNames[0]] {
+                if scrollView.contentOffset.y > CGFloat(height + 80) {
+                    artistNameLabel.text = tbc.event.artistNames[1]
+                }
+                if scrollView.contentOffset.y < CGFloat(height + 80) {
+                    artistNameLabel.text = tbc.event.artistNames[0]
+                }
+            }
+            print(heights)
+                        print(self.artistsVC!.collectionViewLayout.collectionViewContentSize.height)
+                        print(self.artistsVC!.collectionView.contentSize)
+                        print(self.artistsVC?.collectionView.contentInset)
+                        print("height")
         }
     }
     
@@ -122,7 +143,10 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
         artistsVC!.collectionView.dataSource = self
         
         let tbc = self.tabBarController as! DetailTBController
-        
+        if tbc.event.artistNames.count > 0 {
+            self.artistNameLabel.text = tbc.event.artistNames[0]
+        }
+
         if tbc.event.segment == "Music" {
             if tbc.event.artistNames.count < 2 {
                 fetchArtists(artistNames: tbc.event.artistNames, finally: finishLodingArtistInfo)
@@ -311,13 +335,15 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
         
         var y = 0
         
-        let titleTV: UITextView = UITextView(frame: CGRect(x: 0, y: 0, width: 414, height: 60))
-        titleTV.text = artistName
-        titleTV.font = UIFont.boldSystemFont(ofSize: 20)
-        titleTV.textAlignment = .center
-        cell.addSubview(titleTV)
+        if indexPath.row == 1 {
+            let titleTV: UITextView = UITextView(frame: CGRect(x: 0, y: 0, width: 414, height: 60))
+            titleTV.text = artistName
+            titleTV.font = UIFont.boldSystemFont(ofSize: 20)
+            titleTV.textAlignment = .center
+            cell.addSubview(titleTV)
+            y += 50
+        }
         
-        y += 50
         let nameHeight = 40
         let labelHeight = 25
         if let artist = self.artists[artistName] {
@@ -379,7 +405,6 @@ class ArtistContainerViewController: UIViewController, UICollectionViewDelegate,
                 y += imageHeight + imageMargin
             }
         }
-        print(self.artistsVC!.collectionViewLayout.collectionViewContentSize.height)
         
         //self.heights[artistName] = y
         return cell
