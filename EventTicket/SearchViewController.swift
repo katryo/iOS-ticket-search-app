@@ -22,10 +22,8 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var longitude: Double?
     var isCurrentLocation = true
     var suggestions: [String] = []
-//    var suggestions: [String] = []
     
     var suggestionsTableView: UITableView!
-//    let categoryPicker = UIPickerView()
     var suggestionThrottleQueue = ThrottleQueue()
     
     @IBOutlet weak var keywordField: UITextField!
@@ -55,31 +53,12 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.view.addSubview(suggestionsTableView)
         suggestionsTableView.reloadData()
         
-//        self.categoryField.inputView = categoryPicker
-//        categoryPicker.delegate = self
-//        categoryPicker.dataSource = self
-//
-//        let pickerBar = UIToolbar()
-//        pickerBar.sizeToFit()
-//
-//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.doneClicked))
-//
-//        // Just fill the space
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//
-//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClicked))
-//        pickerBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-//        categoryField.inputAccessoryView = pickerBar
-        
         categoryField.delegate = self
         unitPicker.delegate = self
         unitPicker.dataSource = self
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //if #available(iOS 9.0, *) {
+
         locationManager = CLLocationManager()
-        //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //locationManager.requestWhenInUseAuthorization()
+        
         locationManager.delegate = self
         locationManager.requestLocation()
         //}
@@ -148,18 +127,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             }
 
     }
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        suggestionsTableView.frame = CGRect(
-//            x: self.keywordField.frame.minX,
-//            y: self.keywordField.frame.maxY,
-//            width: self.keywordField.frame.width,
-//            height: 400
-//        )
-//        self.view.layoutIfNeeded()
-//    }
 
     @IBAction func clearButtonPushed(_ sender: UIButton) {
         self.keywordField.text = nil
@@ -167,7 +134,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.distanceField.text = nil
         chooseCurrentLocation()
         self.locationField.text = nil
-        // TODO: CLEAR picker, location
         self.unitPicker.selectRow(0, inComponent: 0, animated: true)
     }
     
@@ -207,14 +173,19 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         let url = components.url!
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if error != nil {
-                // TODO: Error handling
+                DispatchQueue.main.async {
+                    self.view.showToast("Failed to get the location", position: .bottom, popTime: 4, dismissOnTap: false)
+                }
+
                 print("Error: \(error!.localizedDescription) \n")
                 return
             }
             
             guard let data = data, let response = response as? HTTPURLResponse else {
                 print("No data or no response")
-                // TODO: Error handling
+                DispatchQueue.main.async {
+                    self.view.showToast("Failed to get the location", position: .bottom, popTime: 4, dismissOnTap: false)
+                }
                 return
             }
             
@@ -225,7 +196,9 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     latLng = try decoder.decode(LatLng.self, from: data)
                 } catch {
                     print("Failed to decode the JSON", error)
-                    // TODO: Error handling
+                    DispatchQueue.main.async {
+                        self.view.showToast("Failed to get the location", position: .bottom, popTime: 4, dismissOnTap: false)
+                    }
                     return
                 }
                 
@@ -233,7 +206,10 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.search(lat: latLng.lat, lng: latLng.lng)
                 }
             } else {
-                // TODO: Error handling
+                print(url)
+                DispatchQueue.main.async {
+                    self.view.showToast("Failed to get the location", position: .bottom, popTime: 4, dismissOnTap: false)
+                }
                 print("Status code: \(response.statusCode)\n")
             }
         }
@@ -395,17 +371,13 @@ extension SearchViewController: UITextFieldDelegate {
                    replacementString string: String) -> Bool {
         if textField === keywordField {
             
-//        self.suggestionsTableView.frame = 300
-//        self.suggestionsTableView.reloadData()
+
         if let text = textField.text {
             self.suggestionsTableView.isHidden = false
             self.suggestionThrottleQueue.throttle {
                 self.fetchSuggestions(keyword: text)
             }
-            //let textRange = Range(range, in: text) {
-            //let updatedText = text.replacingCharacters(in: textRange,
-                                      //                 with: string)
-            // myvalidator(text: updatedText)
+            
         }
             
         return true
@@ -471,19 +443,15 @@ extension SearchViewController: CLLocationManagerDelegate {
             break
         case .denied:
             print("No location")
-            // 「設定 > プライバシー > 位置情報サービス で、位置情報サービスの利用を許可して下さい」を表示する
             break
         case .restricted:
             print("Can not locate the device")
-            // 「このアプリは、位置情報を取得できないために、正常に動作できません」を表示する
             break
         case .authorizedAlways:
             print("Location detection is authorized")
-            // 位置情報取得の開始処理
             break
         case .authorizedWhenInUse:
             print("authorized when in use")
-            // 位置情報取得の開始処理
             break
         }
     }
