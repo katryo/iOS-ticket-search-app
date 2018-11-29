@@ -12,6 +12,8 @@
 		53232B6D21A36F740089AA27 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6C21A36F740089AA27 /* EventCell.swift */; };
 		53232B6F21A3966F0089AA27 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53232B6E21A3966F0089AA27 /* EventList.swift */; };
 		5398C40721A9DA4800C9AA28 /* ArtistsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5398C40621A9DA4800C9AA28 /* ArtistsCollectionViewController.swift */; };
+		53A5053F21B088F7005C6769 /* ArtistContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A5053E21B088F7005C6769 /* ArtistContainerViewController.swift */; };
+		53A5054121B0893D005C6769 /* InnerArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A5054021B0893D005C6769 /* InnerArtistViewController.swift */; };
 		53A9A24921A773D5002095F3 /* LatLng.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24821A773D5002095F3 /* LatLng.swift */; };
 		53A9A24B21A780FC002095F3 /* SuggestionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24A21A780FC002095F3 /* SuggestionList.swift */; };
 		53A9A24D21A8877F002095F3 /* ThrottleQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */; };
@@ -71,6 +73,8 @@
 		53232B6C21A36F740089AA27 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		53232B6E21A3966F0089AA27 /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		5398C40621A9DA4800C9AA28 /* ArtistsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsCollectionViewController.swift; sourceTree = "<group>"; };
+		53A5053E21B088F7005C6769 /* ArtistContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistContainerViewController.swift; sourceTree = "<group>"; };
+		53A5054021B0893D005C6769 /* InnerArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerArtistViewController.swift; sourceTree = "<group>"; };
 		53A9A24821A773D5002095F3 /* LatLng.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLng.swift; sourceTree = "<group>"; };
 		53A9A24A21A780FC002095F3 /* SuggestionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionList.swift; sourceTree = "<group>"; };
 		53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrottleQueue.swift; sourceTree = "<group>"; };
@@ -177,12 +181,15 @@
 			isa = PBXGroup;
 			children = (
 				53E4B724219E589E009F5DB3 /* Main.storyboard */,
+				53A5054021B0893D005C6769 /* InnerArtistViewController.swift */,
+				53A5053E21B088F7005C6769 /* ArtistContainerViewController.swift */,
+				53A9A25621A8F341002095F3 /* SegmentedViewController.swift */,
+				5398C40621A9DA4800C9AA28 /* ArtistsCollectionViewController.swift */,
 				53AE944121AB3A43002F3933 /* UpcomingViewController.swift */,
 				53AE944521AB47C9002F3933 /* UpcomingEvent.swift */,
 				53AE944721AB481B002F3933 /* UpcomingEventList.swift */,
 				53AE944321AB3B8A002F3933 /* UpcomingCell.swift */,
 				53AE943B21AA6BF5002F3933 /* VenueViewController.swift */,
-				5398C40621A9DA4800C9AA28 /* ArtistsCollectionViewController.swift */,
 				53AE943F21AA79F6002F3933 /* WebClient.swift */,
 				53ADB7D621AA3D56007CBEF7 /* UrlList.swift */,
 				53ADB7D421AA1EF7007CBEF7 /* ArtistCollectionViewCell.swift */,
@@ -190,7 +197,6 @@
 				53E4B722219E589E009F5DB3 /* SearchViewController.swift */,
 				53A9A24C21A8877F002095F3 /* ThrottleQueue.swift */,
 				53A9A25821A8F80D002095F3 /* FavoriteEventsTableViewController.swift */,
-				53A9A25621A8F341002095F3 /* SegmentedViewController.swift */,
 				53A9A25421A8D8B6002095F3 /* RootNavigationController.swift */,
 				53A9A25021A8A47A002095F3 /* InfoViewController.swift */,
 				53A9A25221A8C48C002095F3 /* BaseDetailController.swift */,
@@ -500,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53A5054121B0893D005C6769 /* InnerArtistViewController.swift in Sources */,
 				53AE943C21AA6BF5002F3933 /* VenueViewController.swift in Sources */,
 				53A9A24F21A8A2F1002095F3 /* DetailTBController.swift in Sources */,
 				5398C40721A9DA4800C9AA28 /* ArtistsCollectionViewController.swift in Sources */,
@@ -522,6 +529,7 @@
 				5316E75921A9F23D00EE07CF /* Artist.swift in Sources */,
 				53AE944221AB3A43002F3933 /* UpcomingViewController.swift in Sources */,
 				53E4B721219E589E009F5DB3 /* AppDelegate.swift in Sources */,
+				53A5053F21B088F7005C6769 /* ArtistContainerViewController.swift in Sources */,
 				53A9A25B21A9093E002095F3 /* BaseEventsTableViewController.swift in Sources */,
 				53E079F1219FD23D005A9B85 /* EventsTableViewController.swift in Sources */,
 				53A9A25921A8F80D002095F3 /* FavoriteEventsTableViewController.swift in Sources */,

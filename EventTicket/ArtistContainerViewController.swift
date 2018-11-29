@@ -1,25 +1,30 @@
 //
-//  ArtistsCollectionViewController.swift
+//  ContainerViewController.swift
 //  EventTicket
 //
-//  Created by RYOKATO on 2018/11/24.
+//  Created by RYOKATO on 2018/11/29.
 //  Copyright © 2018 Denkinovel. All rights reserved.
 //
 
 import UIKit
 import SwiftSpinner
-import Kingfisher
 
-private let reuseIdentifier = "ArtistDetailCell"
+private let reuseIdentifier = "InnerArtistCell"
 
-class ArtistsCollectionViewController: UICollectionViewController {
+
+class ArtistContainerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
+    @IBOutlet weak var containerView: UIView!
     var artists = [String: Artist]()
     var imageURLs = [String: [URL]]()
     let margin = CGFloat(integerLiteral: 50)
     var heights = [String: Int]()
     var artistInfoLoaded = false
     var artistImageURLsLoaded = false
+    
+    var artistsVC: InnerArtistViewController?
 
+    
     private func calculateHeights() {
         var y = 50
         let nameHeight = 40
@@ -38,20 +43,20 @@ class ArtistsCollectionViewController: UICollectionViewController {
                     y += nameHeight
                 }
                 if artist.followers != "N/A" {
-                
-                y += labelHeight
-                y += nameHeight
-            }
-            if artist.popularity != -1 {
-                
-                y += labelHeight
-                
-                y += nameHeight
-            }
-                if artist.url != URL(string: "N/A") {
-                
+                    
                     y += labelHeight
-                
+                    y += nameHeight
+                }
+                if artist.popularity != -1 {
+                    
+                    y += labelHeight
+                    
+                    y += nameHeight
+                }
+                if artist.url != URL(string: "N/A") {
+                    
+                    y += labelHeight
+                    
                     y += nameHeight
                 }
             }
@@ -65,17 +70,14 @@ class ArtistsCollectionViewController: UICollectionViewController {
             self.heights[artistName] = y
             print(y)
             print("height here", artistName)
-            print(self.collectionViewLayout.collectionViewContentSize.height)
+            print(self.artistsVC!.collectionViewLayout.collectionViewContentSize.height)
         }
-//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//            flowLayout.estimatedItemSize = CGSize(width: 414, height: y)
-//        }
     }
     
     private func finishFetching() {
         DispatchQueue.main.async {
             self.calculateHeights()
-            self.collectionView.reloadData()
+            self.artistsVC!.collectionView.reloadData()
             SwiftSpinner.hide()
         }
     }
@@ -97,13 +99,28 @@ class ArtistsCollectionViewController: UICollectionViewController {
         } else {
             finishFetching()
         }
-
+        
+    }
+    
+    func showCurrentView(){
+        if let vc = artistsVC {
+            self.addChild(vc)
+            vc.didMove(toParent: self)
+            
+            //            vc.view.frame = self.contentView.bounds
+            self.containerView.addSubview(vc.view)
+            //self.currentVC!.viewWillAppear(false)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        artistsVC = storyboard!.instantiateViewController(withIdentifier: "InnerArtistsVC") as! InnerArtistViewController
+        showCurrentView()
         SwiftSpinner.show("Fetching Artist info...")
-
+        artistsVC!.collectionView.delegate = self
+        artistsVC!.collectionView.dataSource = self
+        
         let tbc = self.tabBarController as! DetailTBController
         
         if tbc.event.segment == "Music" {
@@ -119,23 +136,13 @@ class ArtistsCollectionViewController: UICollectionViewController {
         } else {
             fetchImageURLs(artistNames: Array(tbc.event.artistNames[0..<2]), finally: finishLoadingImageURLs)
         }
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-//        self.collectionView!.delegate = self
-        
-        
     }
     
-//    private func updateEstimatedItemSize() {
-//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-//            flowLayout.estimatedItemSize = CGSize(width: 414, height: 1200 * min( tbc.event.artistNames.count, 2))
-//        }
-//    }
+    //    private func updateEstimatedItemSize() {
+    //        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+    //            flowLayout.estimatedItemSize = CGSize(width: 414, height: 1200 * min( tbc.event.artistNames.count, 2))
+    //        }
+    //    }
     
     private func fetchImageURLs(artistNames: [String], finally: @escaping ()->Void) {
         var partlyFinished = false
@@ -145,48 +152,48 @@ class ArtistsCollectionViewController: UICollectionViewController {
         
         for artistName in artistNames {
             WebClient.fetch(urlString: "https://ios-event-ticket-usc.appspot.com/api/images",
-                        queryName: "query",
-                        queryValue: artistName,
-                        not200: {_ in
-                            if partlyFinished {
-                                finally()
-                            } else {
-                                partlyFinished = true
-                            }
-                        },
-                        failure: {_ in
-                            if partlyFinished {
-                                finally()
-                            } else {
-                                partlyFinished = true
-                            }
-                        },
-                        success: {data in
-                            let decoder = JSONDecoder()
-                            let urlList: UrlList
-                            do {
-                                urlList = try decoder.decode(UrlList.self, from: data)
-                                let urls: [URL] = urlList.urls.filter { URLComponents(url: $0, resolvingAgainstBaseURL: false)!.scheme == "https" }
-                                if urls.count > 8 {
-                                    self.imageURLs[artistName] = Array(urls[0..<8])
-                                } else {
-                                    self.imageURLs[artistName] = urls
-                                }
+                            queryName: "query",
+                            queryValue: artistName,
+                            not200: {_ in
                                 if partlyFinished {
                                     finally()
                                 } else {
                                     partlyFinished = true
                                 }
-                            } catch {
-                                print("Failed to decode the JSON", error)
-                                // TODO: Error handling
+            },
+                            failure: {_ in
                                 if partlyFinished {
                                     finally()
                                 } else {
                                     partlyFinished = true
                                 }
-                                
-                            }
+            },
+                            success: {data in
+                                let decoder = JSONDecoder()
+                                let urlList: UrlList
+                                do {
+                                    urlList = try decoder.decode(UrlList.self, from: data)
+                                    let urls: [URL] = urlList.urls.filter { URLComponents(url: $0, resolvingAgainstBaseURL: false)!.scheme == "https" }
+                                    if urls.count > 8 {
+                                        self.imageURLs[artistName] = Array(urls[0..<8])
+                                    } else {
+                                        self.imageURLs[artistName] = urls
+                                    }
+                                    if partlyFinished {
+                                        finally()
+                                    } else {
+                                        partlyFinished = true
+                                    }
+                                } catch {
+                                    print("Failed to decode the JSON", error)
+                                    // TODO: Error handling
+                                    if partlyFinished {
+                                        finally()
+                                    } else {
+                                        partlyFinished = true
+                                    }
+                                    
+                                }
             })
         }
     }
@@ -200,15 +207,15 @@ class ArtistsCollectionViewController: UICollectionViewController {
                             
                             print("nodata")
                             failed()
-                        },
+        },
                         not200: {_ in
                             print("not200")
-                                failed()
-                        },
+                            failed()
+        },
                         failure: {_ in
                             print("failure")
                             failed()
-                        },
+        },
                         success: {data in
                             let decoder = JSONDecoder()
                             let artist: Artist
@@ -220,24 +227,24 @@ class ArtistsCollectionViewController: UICollectionViewController {
                                 print("Failed to decode the JSON", error)
                                 failed()
                             }
-                        })
-        }
+        })
+    }
     
     private func fetchArtists(artistNames: [String], finally: @escaping ()->Void) {
         var partlyFinished = false
         if artistNames.count == 1 {
             partlyFinished = true
         }
-
+        
         for artistName in artistNames {
             self.fetchArtist(
                 artistName: artistName,
                 finished: {
-                if partlyFinished {
-                    finally()
-                } else {
-                    partlyFinished = true
-                }
+                    if partlyFinished {
+                        finally()
+                    } else {
+                        partlyFinished = true
+                    }
             },
                 failed: {
                     DispatchQueue.main.async {
@@ -252,25 +259,25 @@ class ArtistsCollectionViewController: UICollectionViewController {
             })
         }
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using [segue destinationViewController].
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         let tbc = self.tabBarController as! DetailTBController
         
@@ -291,15 +298,15 @@ class ArtistsCollectionViewController: UICollectionViewController {
         return imageView
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ArtistCollectionViewCell
         
         for subview in cell.subviews {
             subview.removeFromSuperview()
         }
-    
+        
         let tbc = self.tabBarController as! DetailTBController
-
+        
         let artistName = tbc.event.artistNames[indexPath.row]
         
         var y = 0
@@ -346,7 +353,7 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 urlLabelTV.font = UIFont.boldSystemFont(ofSize: 16)
                 y += labelHeight
                 cell.addSubview(urlLabelTV)
-
+                
                 let urlButton = UIButton()
                 urlButton.frame = CGRect(x: 16, y: y, width: 200, height: nameHeight)
                 urlButton.setTitle("Spotify", for: .normal)
@@ -372,8 +379,8 @@ class ArtistsCollectionViewController: UICollectionViewController {
                 y += imageHeight + imageMargin
             }
         }
-        print(self.collectionViewLayout.collectionViewContentSize.height)
-
+        print(self.artistsVC!.collectionViewLayout.collectionViewContentSize.height)
+        
         //self.heights[artistName] = y
         return cell
     }
@@ -382,65 +389,23 @@ class ArtistsCollectionViewController: UICollectionViewController {
         let tbc = self.tabBarController as! DetailTBController
         UIApplication.shared.open(artists[tbc.event.artistNames[sender.tag]]!.url)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
-
+    
 }
 
-
-//extension ArtistsCollectionViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let tbc = self.tabBarController as! DetailTBController
-//        
-//        let artistName = tbc.event.artistNames[indexPath.row]
-//        
-//        print("clv")
-//        print(heights)
-//        if let height = heights[artistName] {
-//            return CGSize(width: 414, height: height)
-//        } else {
-//            return CGSize(width: 414, height: 1000)
-//        }
-//    }
-//    
-////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-////        return UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
-////    }
-////
-////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-////        return margin
-////    }
-////
-////    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-////        return margin
-////    }
-//}
+extension ArtistContainerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let tbc = self.tabBarController as! DetailTBController
+        
+        let artistName = tbc.event.artistNames[indexPath.row]
+        
+        print("clv")
+        print(heights)
+        if let height = heights[artistName] {
+            return CGSize(width: 414, height: height)
+        } else {
+            return CGSize(width: 414, height: 1000)
+        }
+    }
+    
+}
