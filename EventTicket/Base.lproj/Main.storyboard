@@ -13,7 +13,7 @@
         <!--Root Navigation Controller-->
         <scene sceneID="Dt1-9x-6QN">
             <objects>
-                <navigationController id="2N4-nS-nWO" customClass="RootNavigationController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2N4-nS-nWO" customClass="RootNavigationController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BEh-eU-mXY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -29,7 +29,7 @@
         <!--Places Search-->
         <scene sceneID="ZGS-ZA-OMj">
             <objects>
-                <viewController title="Places Search" id="jWh-Fx-k9l" customClass="SegmentedViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Places Search" automaticallyAdjustsScrollViewInsets="NO" id="jWh-Fx-k9l" customClass="SegmentedViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zrJ-ts-gqn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,12 +45,19 @@
                                     <action selector="segmentChanged:" destination="jWh-Fx-k9l" eventType="valueChanged" id="gjZ-WJ-MeK"/>
                                 </connections>
                             </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLL-CS-WHM">
-                                <rect key="frame" x="0.0" y="138" width="414" height="772"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLL-CS-WHM">
+                                <rect key="frame" x="0.0" y="148" width="414" height="772"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="414" id="YoA-4O-i7s"/>
+                                    <constraint firstAttribute="height" constant="772" id="Zu9-2K-y84"/>
+                                </constraints>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="kLL-CS-WHM" secondAttribute="bottom" id="tvI-hb-IiK"/>
+                            <constraint firstItem="kLL-CS-WHM" firstAttribute="top" secondItem="6g1-XQ-nhL" secondAttribute="top" constant="60" id="zV6-Vg-eaT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6g1-XQ-nhL"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bik-IQ-tt9">
@@ -67,7 +74,7 @@
         <!--Favorite Events Table View Controller-->
         <scene sceneID="OcT-zA-0os">
             <objects>
-                <tableViewController storyboardIdentifier="FavoriteEventsViewController" id="PCp-7B-Qdv" customClass="FavoriteEventsTableViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoriteEventsViewController" automaticallyAdjustsScrollViewInsets="NO" id="PCp-7B-Qdv" customClass="FavoriteEventsTableViewController" customModule="EventTicket" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="n4q-zN-7af">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,32 +87,50 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0KU-6J-IkG">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0KU-6J-IkG">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="usF-U6-n9L"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="EventName" text="EventName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO4-Hu-Ijz">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="EventName" text="EventName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO4-Hu-Ijz">
                                             <rect key="frame" x="88" y="0.0" width="279" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="aB5-AT-ETT"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VenueName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wJ-5u-hHg">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VenueName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wJ-5u-hHg">
                                             <rect key="frame" x="88" y="29" width="271" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DateTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7Z-TV-kfN">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateTime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7Z-TV-kfN">
                                             <rect key="frame" x="88" y="58" width="279" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eO4-Hu-Ijz" secondAttribute="trailing" constant="27" id="1BX-aw-He4"/>
+                                        <constraint firstItem="7wJ-5u-hHg" firstAttribute="leading" secondItem="S7Z-TV-kfN" secondAttribute="leading" id="Dyh-Er-fv3"/>
+                                        <constraint firstItem="eO4-Hu-Ijz" firstAttribute="trailing" secondItem="S7Z-TV-kfN" secondAttribute="trailing" id="Etk-lu-P3o"/>
+                                        <constraint firstItem="eO4-Hu-Ijz" firstAttribute="leading" secondItem="7wJ-5u-hHg" secondAttribute="leading" id="LnF-Mx-fi9"/>
+                                        <constraint firstItem="0KU-6J-IkG" firstAttribute="top" secondItem="eO4-Hu-Ijz" secondAttribute="top" id="OXQ-Bp-gTO"/>
+                                        <constraint firstItem="0KU-6J-IkG" firstAttribute="top" secondItem="OUo-zi-1vd" secondAttribute="top" id="Qn6-GX-AbS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7wJ-5u-hHg" secondAttribute="trailing" constant="35" id="S4s-J9-w3s"/>
+                                        <constraint firstItem="7wJ-5u-hHg" firstAttribute="top" secondItem="eO4-Hu-Ijz" secondAttribute="bottom" constant="8" symbolic="YES" id="fdX-BZ-ciV"/>
+                                        <constraint firstItem="S7Z-TV-kfN" firstAttribute="top" secondItem="7wJ-5u-hHg" secondAttribute="bottom" constant="8" symbolic="YES" id="iaJ-nN-k1g"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="S7Z-TV-kfN" secondAttribute="bottom" constant="-10" id="lkY-7p-p17"/>
+                                        <constraint firstItem="0KU-6J-IkG" firstAttribute="centerY" secondItem="OUo-zi-1vd" secondAttribute="centerY" id="mQC-Nu-QY1"/>
+                                        <constraint firstItem="0KU-6J-IkG" firstAttribute="centerY" secondItem="7wJ-5u-hHg" secondAttribute="centerY" id="pVq-dp-sOc"/>
+                                        <constraint firstItem="0KU-6J-IkG" firstAttribute="leading" secondItem="OUo-zi-1vd" secondAttribute="leading" id="pnm-bD-gp4"/>
+                                        <constraint firstItem="eO4-Hu-Ijz" firstAttribute="leading" secondItem="0KU-6J-IkG" secondAttribute="trailing" constant="8" symbolic="YES" id="vcH-1L-7pK"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dateTimeLabel" destination="S7Z-TV-kfN" id="6Ja-rH-OBn"/>
@@ -120,6 +145,7 @@
                             <outlet property="delegate" destination="PCp-7B-Qdv" id="rsX-lq-VkW"/>
                         </connections>
                     </tableView>
+                    <size key="freeformSize" width="414" height="896"/>
                     <connections>
                         <outlet property="noFavoritesView" destination="SG3-rI-R6P" id="blU-T8-BoR"/>
                     </connections>
@@ -141,7 +167,7 @@
                     <viewLayoutGuide key="safeArea" id="Uxg-0p-DCg"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-561" y="1155"/>
+            <point key="canvasLocation" x="-261" y="293"/>
         </scene>
         <!--Places Search-->
         <scene sceneID="tne-QT-ifu">

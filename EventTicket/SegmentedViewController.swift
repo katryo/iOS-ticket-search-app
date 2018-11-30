@@ -59,6 +59,26 @@ class SegmentedViewController: UIViewController {
 //            vc.view.frame = self.contentView.bounds
             self.viewContainer.addSubview(vc.view)
             self.currentVC = vc
+            
+            if idx == 1 {
+                let tableVC = vc as! FavoriteEventsTableViewController
+                
+                vc.view.translatesAutoresizingMaskIntoConstraints = false
+                let bottomConstraint = NSLayoutConstraint(item: vc.view, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer!, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
+                let topConstraint = NSLayoutConstraint(item: vc.view, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewContainer!, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+                let widthConstraint = NSLayoutConstraint(item: vc.view, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.width, multiplier: 1, constant: 0)
+                
+                view.addConstraints([bottomConstraint, topConstraint, widthConstraint])
+                
+                
+//                tableVC.tableView.contentInsetAdjustmentBehavior = .never
+//                //tableVC.tableView.automaticallyAdjustsScrollViewInsets = false;
+//                tableVC.tableView.contentInset = UIEdgeInsets.zero;
+//                tableVC.tableView.scrollIndicatorInsets = UIEdgeInsets.zero;
+                //tableVC.tableView.contentOffset = CGPointMake(0.0, 0.0);
+            }
+            
+            
             //self.currentVC!.viewWillAppear(false)
         }
     }

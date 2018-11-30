@@ -21,6 +21,21 @@ class EventsTableViewController: BaseEventsTableViewController, EventCellProtoco
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
     }
+    
+//    func updateFavoriteButton() {
+//        let nc = navigationController as! RootNavigationController
+//        for (i, event) in events.enumerated() {
+//            if nc.hasFavorited(event: event) {
+//                let cell = self.tableView.cellForRow(at: i) as! EventCell
+//                cell.favoriteButton.setImage()
+//                sender.setImage(#imageLiteral(resourceName: "favorite-empty"), for: .normal)
+//            } else {
+//                sender.setImage(#imageLiteral(resourceName: "favorite-filled"), for: .normal)
+//            }
+//        }
+//
+//    }
+    
     func toggleFavoriteButton(sender: UIButton) {
         let index: Int = sender.tag
         let event = events[index]
@@ -64,6 +79,8 @@ class EventsTableViewController: BaseEventsTableViewController, EventCellProtoco
             tableView.backgroundView = nil
             tableView.separatorStyle = .singleLine
         }
+        self.tableView.reloadData()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

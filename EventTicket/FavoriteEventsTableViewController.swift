@@ -13,6 +13,10 @@ class FavoriteEventsTableViewController: BaseEventsTableViewController {
     @IBOutlet var noFavoritesView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        //self.tableView.automaticallyAdjustsScrollViewInsets = false
+        self.tableView.contentInsetAdjustmentBehavior = .never
     }
 
     override func viewWillAppear(_ animated: Bool) {
